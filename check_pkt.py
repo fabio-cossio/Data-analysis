@@ -37,9 +37,13 @@ ROOT.gErrorIgnoreLevel = ROOT.kWarning
 #################################################################################
 
 home_folder = "/home/Fabio/analysis/Data-analysis"
-RUN = 338
 
-RUN = int(sys.argv[1])
+try:
+        RUN = int(sys.argv[1])
+except:
+        RUN = 383
+
+
 path = "{}/CHECK_PACKETS/{}".format(home_folder, RUN)
 if not(os.path.isdir(path)):
         os.mkdir(path)
@@ -57,6 +61,10 @@ chain.Add("{}/Sub_RUN_dec_*.root".format(data_path))
 
 #################################################################################
 #################################################################################
+
+
+print("RUN = {}".format(RUN))
+
 
 
 subrun_max = 100000
