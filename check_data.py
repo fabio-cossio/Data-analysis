@@ -107,29 +107,44 @@ chain.Draw("subRunNo>>h1", condition, "colz")
 MAX = int(h1.GetMaximum())
 print("Max. hits per subrun = {}".format(MAX))
 
-h2 = ROOT.TH1D("h2", "Number of hits per subRun", int(MAX/300), 0, MAX+10)
+
+
+h2 = ROOT.TH1D("h2", "Number of hits per subRun", int(MAX/400), 0, MAX+10)
 h2.GetXaxis().SetTitle("# hits")
 h2.GetYaxis().SetTitle("N")
+
+for binN in range(0, subrun_max):
+    N = h1.GetBinContent(binN)
+    h2.Fill(N)
+
+c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
+h2.Draw()
+h2.Fit("gaus")
+g = h2.GetListOfFunctions().FindObject("gaus")
+mu = g.GetParameter(1)
+sigma = g.GetParameter(2)
+cut = mu - 4*sigma
+print mu, sigma, cut
+line_cut = ROOT.TLine(cut,0, cut,h2.GetMaximum())
+line_cut.Draw()
+
+c2.Update()
+c2.SaveAs("{}/Hits.pdf".format(path))
+h2.Delete()
+c2.Close()
+
+
 
 l_zero = list()
 l_good = list()
 
 for binN in range(0, subrun_max):
     N = h1.GetBinContent(binN)
-    h2.Fill(N)
     if N == 0:
         l_zero.append(binN-1)
-    elif N > 18000:
+    elif N > cut:
         l_good.append(binN-1)
 
-c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
-h2.Draw()
-
-c2.Update()
-c2.SaveAs("{}/Hits.pdf".format(path))
-h2.Delete()
-c2.Close()
-#gSystem.ProcessEvents()
 h1.Delete()
 c1.Close()
 
