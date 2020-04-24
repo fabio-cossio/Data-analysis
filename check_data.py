@@ -118,9 +118,9 @@ for binN in range(0, subrun_max):
     N = h1.GetBinContent(binN)
     h2.Fill(N)
     if N == 0:
-        l_zero.append(binN)
+        l_zero.append(binN-1)
     elif N > 18000:
-        l_good.append(binN)
+        l_good.append(binN-1)
 
 c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
 h2.Draw()
@@ -143,7 +143,7 @@ print(l_good)
 condition = "(delta_coarse==25 || delta_coarse==26)"
 h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 90, 0, 90)
 h1.GetXaxis().SetTitle("subRunNo")
-h1.GetYaxis().SetTitle("FEB_label")
+h1.GetYaxis().SetTitle("TIGER")
 c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
 chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
 
@@ -153,7 +153,7 @@ for TIGER in range(0, 88):
             binN = h1.GetBin(subRUN+1, TIGER+1)
             N = h1.GetBinContent(binN)
             if N == 0:
-                if TIGER<2:
+                if TIGER<200:
                     print(binN, subRUN, TIGER)
                 f.write("{} {} {}\n".format(binN, subRUN, TIGER))
 
@@ -165,6 +165,37 @@ c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
 h1.Delete()
 c1.Close()
 #gSystem.ProcessEvents()
+
+
+
+
+#################################################################################
+## 3. Hits per subrun per FEB (split)
+
+start = 0
+stop = 100
+
+for i in range(0,subrun_max/100 + 1):
+
+    start = i*100
+    stop = (i+1)*100
+    print("Analyzing subRun n. {}".format(start))
+
+    condition = "(delta_coarse==25 || delta_coarse==26)"
+    h1 = ROOT.TH2D("h1", condition, 100, start, stop, 100, 0, 100)
+    h1.GetXaxis().SetTitle("subRunNo")
+    h1.GetYaxis().SetTitle("TIGER")
+    c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
+    chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
+    h1.SetStats(0)
+    #gPad->Update()
+    #h1.FindObject("stats")
+
+    c1.Update()
+    c1.SaveAs("{}/Hits_vs_FEB_{}.pdf".format(path,start))
+    h1.Delete()
+    c1.Close()
+    #gSystem.ProcessEvents()
 
 
 
