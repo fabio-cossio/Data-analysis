@@ -108,8 +108,8 @@ MAX = int(h1.GetMaximum())
 print("Max. hits per subrun = {}".format(MAX))
 
 h2 = ROOT.TH1D("h2", "Number of hits per subRun", int(MAX/300), 0, MAX+10)
-h1.GetXaxis().SetTitle("# hits")
-h1.GetYaxis().SetTitle("N")
+h2.GetXaxis().SetTitle("# hits")
+h2.GetYaxis().SetTitle("N")
 
 l_zero = list()
 l_good = list()
@@ -135,10 +135,17 @@ c1.Close()
 
 print(l_zero)
 print(l_good)
+f.write("EMPTY SUBRUNs = {}\n\n".format(l_zero))
+f.write("GOOD SUBRUNs = {}\n".format(l_good))
+
+
 
 
 #################################################################################
-## 2. Hits per subrun per FEB
+## 2. Hits per subrun per TIGER
+
+f.write("\n\nTIGER with no hits\n")
+print("\n\nTIGER with no hits\n")
 
 condition = "(delta_coarse==25 || delta_coarse==26)"
 h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 90, 0, 90)
@@ -147,30 +154,45 @@ h1.GetYaxis().SetTitle("TIGER")
 c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
 chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
 
-for TIGER in range(0, 88):
-    for subRUN in range(0, subrun_max):
-        if subRUN in l_good:
+h2 = ROOT.TH1D("h2", "No hits (TIGER)", 100, 0, 100)
+h2.GetXaxis().SetTitle("TIGER")
+h2.GetYaxis().SetTitle("N")
+
+
+for subRUN in range(0, subrun_max):
+    if subRUN in l_good:
+        for TIGER in range(0, 88):
             binN = h1.GetBin(subRUN+1, TIGER+1)
             N = h1.GetBinContent(binN)
             if N == 0:
-                if TIGER<200:
-                    print(binN, subRUN, TIGER)
-                f.write("{} {} {}\n".format(binN, subRUN, TIGER))
+                h2.Fill(TIGER)
+                print(subRUN, TIGER)
+                f.write("{} {}\n".format(subRUN, TIGER))
 
 #MAX = int(h1.GetMaximum())
 #print("Max. hits per subrun = {}".format(MAX))
 
 c1.Update()
-c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
+c1.SaveAs("{}/Hits_vs_TIGER.pdf".format(path))
 h1.Delete()
 c1.Close()
 #gSystem.ProcessEvents()
+
+c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
+h2.Draw()
+
+c2.Update()
+c2.SaveAs("{}/noHits_TIGER.pdf".format(path))
+h2.Delete()
+c2.Close()
+
+
 
 
 
 
 #################################################################################
-## 3. Hits per subrun per FEB (split)
+## 3. Hits per subrun per TIGER (split)
 
 start = 0
 stop = 100
@@ -192,11 +214,95 @@ for i in range(0,subrun_max/100 + 1):
     #h1.FindObject("stats")
 
     c1.Update()
-    c1.SaveAs("{}/Hits_vs_FEB_{}.pdf".format(path,start))
+    c1.SaveAs("{}/Hits_vs_TIGER_{}.pdf".format(path,start))
     h1.Delete()
     c1.Close()
     #gSystem.ProcessEvents()
 
+
+
+
+#################################################################################
+## 4. Hits per subrun per FEB
+
+f.write("\n\nFEBs with no hits\n")
+print("FEBs with no hits\n")
+
+condition = "(delta_coarse==25 || delta_coarse==26)"
+h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 46, 0, 46)
+h1.GetXaxis().SetTitle("subRunNo")
+h1.GetYaxis().SetTitle("FEB")
+c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
+chain.Draw("gemroc*4+tiger/2:subRunNo>>h1", condition, "colz")
+
+h2 = ROOT.TH1D("h2", "No hits (FEB)", 50, 0, 50)
+h2.GetXaxis().SetTitle("FEB")
+h2.GetYaxis().SetTitle("N")
+
+for subRUN in range(0, subrun_max):
+    if subRUN in l_good:
+        for FEB in range(0, 44):
+            binN = h1.GetBin(subRUN+1, FEB+1)
+            N = h1.GetBinContent(binN)
+            if N == 0:
+                h2.Fill(FEB)
+                print(subRUN, FEB)
+                f.write("{} {}\n".format(subRUN, FEB))
+
+c1.Update()
+c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
+h1.Delete()
+c1.Close()
+
+c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
+h2.Draw()
+
+c2.Update()
+c2.SaveAs("{}/noHits_FEB.pdf".format(path))
+h2.Delete()
+c2.Close()
+
+
+
+#################################################################################
+## 5. Hits per subrun per GEMROC
+
+f.write("\n\nGEMROCs with no hits\n")
+print("GEMROCs with no hits\n")
+
+condition = "(delta_coarse==25 || delta_coarse==26)"
+h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 15, 0, 15)
+h1.GetXaxis().SetTitle("subRunNo")
+h1.GetYaxis().SetTitle("GEMROC")
+c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
+chain.Draw("gemroc:subRunNo>>h1", condition, "colz")
+
+h2 = ROOT.TH1D("h2", "No hits (GEMROC)", 15, 0, 15)
+h2.GetXaxis().SetTitle("GEMROC")
+h2.GetYaxis().SetTitle("N")
+
+for subRUN in range(0, subrun_max):
+    if subRUN in l_good:
+        for ROC in range(0, 11):
+            binN = h1.GetBin(subRUN+1, ROC+1)
+            N = h1.GetBinContent(binN)
+            if N == 0:
+                h2.Fill(ROC)
+                print(subRUN, ROC)
+                f.write("{} {}\n".format(subRUN, ROC))
+
+c1.Update()
+c1.SaveAs("{}/Hits_vs_GEMROC.pdf".format(path))
+h1.Delete()
+c1.Close()
+
+c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
+h2.Draw()
+
+c2.Update()
+c2.SaveAs("{}/noHits_GEMROC.pdf".format(path))
+h2.Delete()
+c2.Close()
 
 
 
