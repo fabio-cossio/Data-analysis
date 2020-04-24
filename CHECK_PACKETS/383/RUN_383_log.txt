@@ -3,13 +3,13 @@ RUN = 383
 subRunNo MAX = 2
 L1 count MAX = 10600
 TOTAL ENTRIES = 245991
-TOTAL ENTRIES = 245638 (353 spourious removed, 0.14%)
+TOTAL ENTRIES = 245638 (353 spurious removed, 0.14%)
 
 ANALYSIS ON L1TS_MIN_TCOARSE ERRORS
 GOOD ENTRIES = 62135 (25.30%)
  BAD ENTRIES = 183503 (74.70%)
 l1ts_min_tcoarse errors from TIGER 0-3 = 78304 (42.67%)
-l1ts_min_tcoarse errors from TIGER 4-7 = 105190 (57.32%)
+l1ts_min_tcoarse errors from TIGER 4-7 = 105199 (57.33%)
 
 Analyzing GEMROC 0...
 Analyzing GEMROC 1...

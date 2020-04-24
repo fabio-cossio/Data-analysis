@@ -9,7 +9,7 @@ ANALYSIS ON L1TS_MIN_TCOARSE ERRORS
 GOOD ENTRIES = 25387985 (99.79%)
  BAD ENTRIES = 52215 (0.21%)
 l1ts_min_tcoarse errors from TIGER 0-3 = 0 (0.00%)
-l1ts_min_tcoarse errors from TIGER 4-7 = 52213 (100.00%)
+l1ts_min_tcoarse errors from TIGER 4-7 = 52215 (100.00%)
 
 Analyzing GEMROC 0...
 Analyzing GEMROC 1...
