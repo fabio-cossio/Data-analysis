@@ -1,0 +1,18 @@
+
+RUN = 383
+subRunNo MAX = 0
+L1 count MAX = 10590
+TOTAL ENTRIES = 245991
+EMPTY SUBRUNs = [-1]
+
+GOOD SUBRUNs = [0]
+
+
+TIGER with no hits
+0 68
+
+
+FEBs with no hits
+
+
+GEMROCs with no hits
