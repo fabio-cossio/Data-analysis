@@ -212,7 +212,7 @@ for RUN in run:
                         h2.Fill(TIGER)
                         print(subRUN, TIGER)
                         f.write("{} {}\n".format(subRUN, TIGER))
-                        if full_analysis:
+                        if full_analysis and RUN != 368:
                             ht1.Fill(TIGER)
 
 
@@ -295,7 +295,7 @@ for RUN in run:
                         h2.Fill(FEB)
                         print(subRUN, FEB)
                         f.write("{} {}\n".format(subRUN, FEB))
-                        if full_analysis:
+                        if full_analysis and RUN != 368:
                             ht2.Fill(FEB)
 
     c1.Update()
@@ -343,7 +343,7 @@ for RUN in run:
                     h2.Fill(ROC)
                     print(subRUN, ROC)
                     f.write("{} {}\n".format(subRUN, ROC))
-                    if full_analysis:
+                    if full_analysis and RUN != 368:
                         ht3.Fill(ROC)
 
     c1.Update()
