@@ -291,11 +291,12 @@ for RUN in run:
                 binN = h1.GetBin(subRUN+1, FEB+1)
                 N = h1.GetBinContent(binN)
                 if N == 0:
-                    h2.Fill(FEB)
-                    print(subRUN, FEB)
-                    f.write("{} {}\n".format(subRUN, FEB))
-                    if full_analysis:
-                        ht2.Fill(FEB)
+                    if (RUN < 376 or FEB != 34):
+                        h2.Fill(FEB)
+                        print(subRUN, FEB)
+                        f.write("{} {}\n".format(subRUN, FEB))
+                        if full_analysis:
+                            ht2.Fill(FEB)
 
     c1.Update()
     c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
