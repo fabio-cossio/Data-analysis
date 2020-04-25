@@ -44,7 +44,7 @@ full_analysis = False
 try:
 
     if sys.argv[1] == "all":
-        run = [351,368,370,372,375,355,376,377,378,387,380,383,384,385]
+        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385]
 
         full_analysis = True
         ht1 = ROOT.TH1D("ht1", "No hits (TIGER) all RUNs", 100, 0, 100)
@@ -145,7 +145,7 @@ for RUN in run:
 
     c2 = ROOT.TCanvas("c2", "c2", 100, 100, 1600, 1000)
     h2.Draw()
-    h2.Fit("gaus")
+    h2.Fit("gaus", "", "", h2.GetMean()-h2.GetMean()/5, MAX+10)
     g = h2.GetListOfFunctions().FindObject("gaus")
     mu = g.GetParameter(1)
     sigma = g.GetParameter(2)
@@ -208,11 +208,12 @@ for RUN in run:
                 binN = h1.GetBin(subRUN+1, TIGER+1)
                 N = h1.GetBinContent(binN)
                 if N == 0:
-                    h2.Fill(TIGER)
-                    print(subRUN, TIGER)
-                    f.write("{} {}\n".format(subRUN, TIGER))
-                    if full_analysis:
-                        ht1.Fill(TIGER)
+                    if (RUN < 375 or TIGER != 69) and (RUN < 376 or TIGER != 68):
+                        h2.Fill(TIGER)
+                        print(subRUN, TIGER)
+                        f.write("{} {}\n".format(subRUN, TIGER))
+                        if full_analysis:
+                            ht1.Fill(TIGER)
 
 
     c1.Update()

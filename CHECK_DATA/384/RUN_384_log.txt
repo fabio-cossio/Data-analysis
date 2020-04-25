@@ -9,7 +9,6 @@ GOOD SUBRUNs = [0]
 
 
 TIGER with no hits
-0 68
 
 
 FEBs with no hits
