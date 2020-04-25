@@ -5,7 +5,7 @@ L1 count MAX = 10490
 TOTAL ENTRIES = 257389
 EMPTY SUBRUNs = [-1, 0]
 
-GOOD SUBRUNs = [1]
+GOOD SUBRUNs (1) = [1]
 
 
 TIGER with no hits

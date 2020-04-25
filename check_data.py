@@ -66,7 +66,7 @@ except:
     run = [383]
 
 
-print("Performing DATA QUALITY analysis on the following RUNs {}".format(run))
+print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run))
 
 for RUN in run:
 
@@ -176,10 +176,10 @@ for RUN in run:
     h1.Delete()
     c1.Close()
 
-    print(l_zero)
-    print(l_good)
+    print("\n\nEMPTY SUBRUNs = {}\n\n".format(l_zero))
+    print("GOOD SUBRUNs ({}) = {}\n".format(len(l_good), l_good))
     f.write("EMPTY SUBRUNs = {}\n\n".format(l_zero))
-    f.write("GOOD SUBRUNs = {}\n".format(l_good))
+    f.write("GOOD SUBRUNs ({}) = {}\n".format(len(l_good), l_good))
 
 
 
@@ -272,7 +272,7 @@ for RUN in run:
     ## 4. Hits per subrun per FEB
 
     f.write("\n\nFEBs with no hits\n")
-    print("FEBs with no hits\n")
+    print("\n\nFEBs with no hits\n")
 
     condition = "(delta_coarse==25 || delta_coarse==26)"
     h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 46, 0, 46)
@@ -321,7 +321,7 @@ for RUN in run:
     ## 5. Hits per subrun per GEMROC
 
     f.write("\n\nGEMROCs with no hits\n")
-    print("GEMROCs with no hits\n")
+    print("\n\nGEMROCs with no hits\n")
 
     condition = "(delta_coarse==25 || delta_coarse==26)"
     h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 15, 0, 15)
