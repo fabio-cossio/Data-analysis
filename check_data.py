@@ -66,6 +66,8 @@ except:
     run = [383]
 
 
+print("Performing DATA QUALITY analysis on the following RUNs {}".format(run))
+
 for RUN in run:
 
     path = "{}/CHECK_DATA/{}".format(home_folder, RUN)
@@ -154,6 +156,8 @@ for RUN in run:
 
     c2.Update()
     c2.SaveAs("{}/Hits.pdf".format(path))
+    c2.SaveAs("{}/Hits.png".format(path))
+    c2.SaveAs("{}/Hits.root".format(path))
     h2.Delete()
     c2.Close()
 
@@ -213,6 +217,8 @@ for RUN in run:
 
     c1.Update()
     c1.SaveAs("{}/Hits_vs_TIGER.pdf".format(path))
+    c1.SaveAs("{}/Hits_vs_TIGER.png".format(path))
+    c1.SaveAs("{}/Hits_vs_TIGER.root".format(path))
     h1.Delete()
     c1.Close()
 
@@ -221,6 +227,8 @@ for RUN in run:
 
     c2.Update()
     c2.SaveAs("{}/noHits_TIGER.pdf".format(path))
+    c2.SaveAs("{}/noHits_TIGER.png".format(path))
+    c2.SaveAs("{}/noHits_TIGER.root".format(path))
     h2.Delete()
     c2.Close()
 
@@ -251,6 +259,8 @@ for RUN in run:
 
         c1.Update()
         c1.SaveAs("{}/Hits_vs_TIGER_{}.pdf".format(path,start))
+        c1.SaveAs("{}/Hits_vs_TIGER_{}.png".format(path,start))
+        c1.SaveAs("{}/Hits_vs_TIGER_{}.root".format(path,start))
         h1.Delete()
         c1.Close()
 
@@ -288,6 +298,8 @@ for RUN in run:
 
     c1.Update()
     c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
+    c1.SaveAs("{}/Hits_vs_FEB.png".format(path))
+    c1.SaveAs("{}/Hits_vs_FEB.root".format(path))
     h1.Delete()
     c1.Close()
 
@@ -296,6 +308,8 @@ for RUN in run:
 
     c2.Update()
     c2.SaveAs("{}/noHits_FEB.pdf".format(path))
+    c2.SaveAs("{}/noHits_FEB.png".format(path))
+    c2.SaveAs("{}/noHits_FEB.root".format(path))
     h2.Delete()
     c2.Close()
 
@@ -332,6 +346,8 @@ for RUN in run:
 
     c1.Update()
     c1.SaveAs("{}/Hits_vs_GEMROC.pdf".format(path))
+    c1.SaveAs("{}/Hits_vs_GEMROC.png".format(path))
+    c1.SaveAs("{}/Hits_vs_GEMROC.root".format(path))
     h1.Delete()
     c1.Close()
 
@@ -340,6 +356,8 @@ for RUN in run:
 
     c2.Update()
     c2.SaveAs("{}/noHits_GEMROC.pdf".format(path))
+    c2.SaveAs("{}/noHits_GEMROC.png".format(path))
+    c2.SaveAs("{}/noHits_GEMROC.root".format(path))
     h2.Delete()
     c2.Close()
 
@@ -353,6 +371,8 @@ if full_analysis:
     ht1.Draw()
     ct1.Update()
     ct1.SaveAs("{}/noHits_TIGER_allRUNs.pdf".format(path))
+    ct1.SaveAs("{}/noHits_TIGER_allRUNs.png".format(path))
+    ct1.SaveAs("{}/noHits_TIGER_allRUNs.root".format(path))
     ht1.Delete()
     ct1.Close()
 
@@ -360,6 +380,8 @@ if full_analysis:
     ht2.Draw()
     ct2.Update()
     ct2.SaveAs("{}/noHits_FEB_allRUNs.pdf".format(path))
+    ct2.SaveAs("{}/noHits_FEB_allRUNs.png".format(path))
+    ct2.SaveAs("{}/noHits_FEB_allRUNs.root".format(path))
     ht2.Delete()
     ct2.Close()
 
@@ -367,6 +389,8 @@ if full_analysis:
     ht3.Draw()
     ct3.Update()
     ct3.SaveAs("{}/noHits_GEMROC_allRUNs.pdf".format(path))
+    ct3.SaveAs("{}/noHits_GEMROC_allRUNs.png".format(path))
+    ct3.SaveAs("{}/noHits_GEMROC_allRUNs.root".format(path))
     ht3.Delete()
     ct3.Close()
 
