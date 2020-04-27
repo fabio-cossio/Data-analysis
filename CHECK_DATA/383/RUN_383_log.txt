@@ -7,11 +7,19 @@ EMPTY SUBRUNs = [-1]
 
 GOOD SUBRUNs (1) = [0]
 
+LOW ENTRIES SUBRUNs = [-1]
+
 
 TIGER with no hits
+
+subRUN	TIGER
 
 
 FEBs with no hits
 
+subRUN	FEB
+
 
 GEMROCs with no hits
+
+GEMROC	FEB

@@ -164,22 +164,29 @@ for RUN in run:
 
 
     l_zero = list()
+    l_low = list()
     l_good = list()
 
     for binN in range(0, subrun_max):
         N = h1.GetBinContent(binN)
         if N == 0:
             l_zero.append(binN-1)
+            l_low.append(binN-1)
         elif N > cut:
             l_good.append(binN-1)
+        else:
+            l_low.append(binN-1)
+            
 
     h1.Delete()
     c1.Close()
 
     print("\n\nEMPTY SUBRUNs = {}\n\n".format(l_zero))
     print("GOOD SUBRUNs ({}) = {}\n".format(len(l_good), l_good))
+    print("LOW ENTRIES SUBRUNs = {}\n\n".format(l_low))
     f.write("EMPTY SUBRUNs = {}\n\n".format(l_zero))
-    f.write("GOOD SUBRUNs ({}) = {}\n".format(len(l_good), l_good))
+    f.write("GOOD SUBRUNs ({}) = {}\n\n".format(len(l_good), l_good))
+    f.write("LOW ENTRIES SUBRUNs = {}\n".format(l_low))
 
 
 
@@ -188,7 +195,9 @@ for RUN in run:
     ## 2. Hits per subrun per TIGER
 
     f.write("\n\nTIGER with no hits\n")
+    f.write("\nsubRUN\tTIGER\n")
     print("\n\nTIGER with no hits\n")
+    print("subRUN\tTIGER\n")
 
     condition = "(delta_coarse==25 || delta_coarse==26)"
     h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 90, 0, 90)
@@ -210,8 +219,8 @@ for RUN in run:
                 if N == 0:
                     if (RUN < 375 or TIGER != 69) and (RUN < 376 or TIGER != 68):
                         h2.Fill(TIGER)
-                        print(subRUN, TIGER)
-                        f.write("{} {}\n".format(subRUN, TIGER))
+                        print("{}\t{}".format(subRUN, TIGER))
+                        f.write("{}\t{}\n".format(subRUN, TIGER))
                         if full_analysis and RUN != 368:
                             ht1.Fill(TIGER)
 
@@ -246,7 +255,7 @@ for RUN in run:
 
         start = i*100
         stop = (i+1)*100
-        print("Analyzing subRun n. {}".format(start))
+        print("Saving plots for subRun n. {}".format(start))
 
         condition = "(delta_coarse==25 || delta_coarse==26)"
         h1 = ROOT.TH2D("h1", condition, 100, start, stop, 100, 0, 100)
@@ -272,7 +281,9 @@ for RUN in run:
     ## 4. Hits per subrun per FEB
 
     f.write("\n\nFEBs with no hits\n")
-    print("\n\nFEBs with no hits\n")
+    f.write("\nsubRUN\tFEB\n")
+    print("\n\nFEB with no hits\n")
+    print("subRUN\tFEB\n")
 
     condition = "(delta_coarse==25 || delta_coarse==26)"
     h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 46, 0, 46)
@@ -293,8 +304,8 @@ for RUN in run:
                 if N == 0:
                     if (RUN < 376 or FEB != 34):
                         h2.Fill(FEB)
-                        print(subRUN, FEB)
-                        f.write("{} {}\n".format(subRUN, FEB))
+                        print("{}\t{}".format(subRUN, FEB))
+                        f.write("{}\t{}\n".format(subRUN, FEB))
                         if full_analysis and RUN != 368:
                             ht2.Fill(FEB)
 
@@ -321,7 +332,9 @@ for RUN in run:
     ## 5. Hits per subrun per GEMROC
 
     f.write("\n\nGEMROCs with no hits\n")
+    f.write("\nGEMROC\tFEB\n")
     print("\n\nGEMROCs with no hits\n")
+    print("GEMROC\tFEB\n")
 
     condition = "(delta_coarse==25 || delta_coarse==26)"
     h1 = ROOT.TH2D("h1", condition, subrun_max, 0, subrun_max, 15, 0, 15)
@@ -341,8 +354,8 @@ for RUN in run:
                 N = h1.GetBinContent(binN)
                 if N == 0:
                     h2.Fill(ROC)
-                    print(subRUN, ROC)
-                    f.write("{} {}\n".format(subRUN, ROC))
+                    print("{}\t{}".format(subRUN, ROC))
+                    f.write("{}\t{}\n".format(subRUN, ROC))
                     if full_analysis and RUN != 368:
                         ht3.Fill(ROC)
 
@@ -362,6 +375,19 @@ for RUN in run:
     c2.SaveAs("{}/noHits_GEMROC.root".format(path))
     h2.Delete()
     c2.Close()
+
+
+
+
+    print("\nDone\n\n")
+    #f.write("\nDone\n\n")
+
+
+
+    f.close()
+
+
+
 
 
 
@@ -398,133 +424,5 @@ if full_analysis:
 
 
 
-"""
-
-#################################################################################
-## 2. PACCHETTI SFASATI
-
-print("\nANALYSIS ON L1TS_MIN_TCOARSE ERRORS")
-f.write("\nANALYSIS ON L1TS_MIN_TCOARSE ERRORS\n")
-
-condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse>1299 && l1ts_min_tcoarse<1567)"
-h1 = ROOT.TH1D("h1", condition, l1count_max, 0, l1count_max)
-h1.GetXaxis().SetTitle("count")
-h1.GetYaxis().SetTitle("N")
-c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
-chain.Draw("count>>h1", condition, "colz")
-
-TOT2 = int(h1.GetEntries())
-print("GOOD ENTRIES = {} ({:.2f}%)".format( TOT2, TOT2/float(TOT1)*100 ) )
-f.write("GOOD ENTRIES = {} ({:.2f}%)\n".format( TOT2, TOT2/float(TOT1)*100 ) )
-
-c1.Update()
-c1.SaveAs("{}/good.pdf".format(path))
-h1.Delete()
-c1.Close()
-
-print(" BAD ENTRIES = {} ({:.2f}%)".format( TOT1-TOT2, (TOT1-TOT2)/float(TOT1)*100 ) )
-f.write(" BAD ENTRIES = {} ({:.2f}%)\n".format( TOT1-TOT2, (TOT1-TOT2)/float(TOT1)*100 ) )
-
-
-
-
-#################################################################################
-## 3. PACCHETTI SFASATI (errors)
-
-condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566)"
-h1 = ROOT.TH2D("h1", condition, l1count_max, 0, l1count_max, 15, 0, 15)
-h1.GetXaxis().SetTitle("count")
-h1.GetYaxis().SetTitle("gemroc")
-c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-chain.Draw("gemroc:count>>h1", condition, "*")
-
-c1.Update()
-c1.SaveAs("{}/COUNTvsGEMROC.pdf".format(path))
-h1.Delete()
-c1.Close()
-
-
-
-
-#################################################################################
-## 4. PACCHETTI SFASATI (errors on TIGER 0-3 and 4-7)
-
-condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && tiger<4"
-h1 = ROOT.TH2D("h1", condition, l1count_max, 0, l1count_max, 15, 0, 15)
-h1.GetXaxis().SetTitle("count")
-h1.GetYaxis().SetTitle("gemroc")
-c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-chain.Draw("gemroc:count>>h1", condition, "*")
-print("l1ts_min_tcoarse errors from TIGER 0-3 = {} ({:.2f}%)".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
-f.write("l1ts_min_tcoarse errors from TIGER 0-3 = {} ({:.2f}%)\n".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
-
-c1.Update()
-c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.pdf".format(path))
-h1.Delete()
-c1.Close()
-
-
-condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && tiger>3"
-h1 = ROOT.TH2D("h1", condition, l1count_max, 0, l1count_max, 15, 0, 15)
-h1.GetXaxis().SetTitle("count")
-h1.GetYaxis().SetTitle("gemroc")
-c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-chain.Draw("gemroc:count>>h1", condition, "*")
-print("l1ts_min_tcoarse errors from TIGER 4-7 = {} ({:.2f}%)".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
-f.write("l1ts_min_tcoarse errors from TIGER 4-7 = {} ({:.2f}%)\n".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
-
-c1.Update()
-c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.pdf".format(path))
-h1.Delete()
-c1.Close()
-
-
-print("\n")
-f.write("\n")
-
-
-
-
-#################################################################################
-## 5. GEMROC
-
-for roc in range(0, 14):
-        if roc == 11:
-                continue
-        else:
-                print ("Analyzing GEMROC {}...".format(roc))
-                f.write("Analyzing GEMROC {}...\n".format(roc))
-
-
-                condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && gemroc=={}".format(roc)
-                h1 = ROOT.TH2D("h1", condition, l1count_max, 0, l1count_max, subrun_max, 0, subrun_max)
-                h1.GetXaxis().SetTitle("count")
-                h1.GetYaxis().SetTitle("subRunNo")
-                c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-                chain.Draw("subRunNo:count>>h1", condition, "*")
-
-                c1.Update()
-                c1.SaveAs("{}/GEMROC_{}.pdf".format(path, roc))
-                h1.Delete()
-                c1.Close()
-
-
-
-
-
-
-
-#################################################################################
-#################################################################################
-
-
-"""
-
-print("\nDone\n\n")
-f.write("\nDone\n\n")
-
-
-
-f.close()
 
 

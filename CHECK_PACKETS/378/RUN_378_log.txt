@@ -1,7 +1,7 @@
 
 RUN = 378
-subRunNo MAX = 124
-L1 count MAX = 151
+subRunNo MAX = 122
+L1 count MAX = 141
 TOTAL ENTRIES = 808254
 TOTAL ENTRIES = 807783 (471 spurious removed, 0.06%)
 
@@ -11,19 +11,34 @@ GOOD ENTRIES = 805386 (99.70%)
 l1ts_min_tcoarse errors from TIGER 0-3 = 0 (0.00%)
 l1ts_min_tcoarse errors from TIGER 4-7 = 2397 (100.00%)
 
-Analyzing GEMROC 0...
-Analyzing GEMROC 1...
-Analyzing GEMROC 2...
-Analyzing GEMROC 3...
-Analyzing GEMROC 4...
-Analyzing GEMROC 5...
-Analyzing GEMROC 6...
-Analyzing GEMROC 7...
-Analyzing GEMROC 8...
-Analyzing GEMROC 9...
-Analyzing GEMROC 10...
-Analyzing GEMROC 12...
-Analyzing GEMROC 13...
+
+GEMROC 0:
+
+GEMROC 1:
+
+GEMROC 2:
+
+GEMROC 3:
+
+GEMROC 4:
+BAD subRUN = 15
+
+GEMROC 5:
+
+GEMROC 6:
+
+GEMROC 7:
+
+GEMROC 8:
+
+GEMROC 9:
+BAD subRUN = 105
+
+GEMROC 10:
+
+GEMROC 12:
+
+GEMROC 13:
 
 Done
 
