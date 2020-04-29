@@ -9,6 +9,7 @@ import ROOT
 
 import sys
 import os
+import glob
 
 
 
@@ -81,6 +82,24 @@ for RUN in run:
 
 
     data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}".format(RUN)
+
+
+
+    BAD_SUBRUNs_low = list()
+    BAD_SUBRUNs_holes = list()
+    for name in glob.glob("{}/badSubRUN/lowevent/Sub_RUN_event*".format(data_path)):
+        BAD_SUBRUNs_low.append( int( name.split("/")[-1].split("_")[-1].split(".")[0] ) )
+    for name in glob.glob("{}/badSubRUN/nofireFEB/Sub_RUN_event*".format(data_path)):
+        BAD_SUBRUNs_holes.append( int( name.split("/")[-1].split("_")[-1].split(".")[0] ) )
+
+    #print BAD_SUBRUNs_low
+    #print BAD_SUBRUNs_holes
+
+
+    BAD_SUBRUNs_low_dec = list()
+    BAD_SUBRUNs_holes_dec = list()
+
+
 
     chain = ROOT.TChain("tree")
     chain.Add("{}/Sub_RUN_dec_*.root".format(data_path))
@@ -188,6 +207,7 @@ for RUN in run:
     f.write("GOOD SUBRUNs ({}) = {}\n\n".format(len(l_good), l_good))
     f.write("LOW ENTRIES SUBRUNs = {}\n".format(l_low))
 
+    BAD_SUBRUNs_low_dec = l_low
 
 
 
@@ -221,6 +241,9 @@ for RUN in run:
                         h2.Fill(TIGER)
                         print("{}\t{}".format(subRUN, TIGER))
                         f.write("{}\t{}\n".format(subRUN, TIGER))
+                        if not(subRUN in BAD_SUBRUNs_holes_dec):
+                            BAD_SUBRUNs_holes_dec.append(subRUN)
+
                         if full_analysis and RUN != 368:
                             ht1.Fill(TIGER)
 
@@ -378,6 +401,17 @@ for RUN in run:
 
 
 
+    print( "\n\nBAD SUBRUNs (low hits) from Decode: {}".format(BAD_SUBRUNs_low_dec) )
+    print( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
+    f.write( "\n\nBAD SUBRUNs (low hits) from Decode: {}\n\n".format(BAD_SUBRUNs_low_dec) )
+    f.write( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
+
+    print( "\n\nBAD SUBRUNs (holes) from Decode: {}".format(BAD_SUBRUNs_holes_dec) )
+    print( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
+    f.write( "\n\nBAD SUBRUNs (holes) from Decode: {}\n\n".format(BAD_SUBRUNs_holes_dec) )
+    f.write( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
+
+
 
     print("\nDone\n\n")
     #f.write("\nDone\n\n")
@@ -385,8 +419,6 @@ for RUN in run:
 
 
     f.close()
-
-
 
 
 

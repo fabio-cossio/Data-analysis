@@ -23,3 +23,12 @@ subRUN	FEB
 GEMROCs with no hits
 
 GEMROC	FEB
+
+
+BAD SUBRUNs (low hits) from Decode: [-1, 17, 20, 35, 39, 41, 42, 55, 61, 64, 68, 78, 83, 86, 90, 91]
+
+BAD SUBRUNs (low events) from Event: [91]
+
+BAD SUBRUNs (holes) from Decode: []
+
+BAD SUBRUNs (holes) from Event: []

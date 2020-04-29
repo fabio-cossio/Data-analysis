@@ -1,0 +1,12 @@
+SUBRUNs with high ENTRIES = [1]
+
+No SUBRUNs to be cut due to holes: ['']
+
+No SUBRUNs to be cut due to pakets shift: ['']
+
+SUBRUNs GOOD (decode) = [1]
+
+SUBRUNs GOOD (event)  = [1]
+
+Difference between GOOD RUNS for Decode and Event: []
+

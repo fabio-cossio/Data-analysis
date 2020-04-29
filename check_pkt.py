@@ -9,7 +9,7 @@ import ROOT
 
 import sys
 import os
-
+import glob
 
 
 #############################################################
@@ -67,7 +67,6 @@ except:
     run = [383]
 
 
-
 print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run))
 
 for RUN in run:
@@ -85,6 +84,17 @@ for RUN in run:
 
 
     data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}".format(RUN)
+    
+
+    BAD_SUBRUNs = list()
+    for name in glob.glob("{}/badSubRUN/tool1ts/Sub_RUN_event*".format(data_path)):
+        BAD_SUBRUNs.append( int( name.split("/")[-1].split("_")[-1].split(".")[0] ) )
+
+    #print BAD_SUBRUNs
+
+
+    BAD_SUBRUNs_dec = list()
+
 
     chain = ROOT.TChain("tree")
     chain.Add("{}/Sub_RUN_dec_*.root".format(data_path))
@@ -100,7 +110,7 @@ for RUN in run:
 
     subrun_max = 100000
     h1 = ROOT.TH1D("h1", "h1", subrun_max, 0, subrun_max)
-    chain.Draw("subRunNo>>h1", "", "colz")
+    chain.Draw("subRunNo>>h1", "", "")
     bin = h1.FindLastBinAbove(0, 1)
     subrun_max = int(h1.GetXaxis().GetBinCenter(bin)) + 2
     print("subRunNo MAX = {}".format(subrun_max-2))
@@ -110,7 +120,7 @@ for RUN in run:
 
     l1count_max = 100000
     h1 = ROOT.TH1D("h1", "h1", l1count_max, 0, l1count_max)
-    chain.Draw("count>>h1", "", "colz")
+    chain.Draw("count>>h1", "", "")
     bin = h1.FindLastBinAbove(0, 1)
     l1count_max = int(h1.GetXaxis().GetBinCenter(bin)) + 10
     print("L1 count MAX = {}".format(l1count_max-10))
@@ -133,7 +143,7 @@ for RUN in run:
     h1.GetXaxis().SetTitle("count")
     h1.GetYaxis().SetTitle("N")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
-    chain.Draw("count>>h1", condition, "colz")
+    chain.Draw("count>>h1", condition, "")
 
     TOT1 = int(h1.GetEntries())
     print("TOTAL ENTRIES = {} ({} spurious removed, {:.2f}%)".format( TOT1, TOT-TOT1, (TOT-TOT1)/float(TOT)*100 ) )
@@ -161,7 +171,7 @@ for RUN in run:
     h1.GetXaxis().SetTitle("count")
     h1.GetYaxis().SetTitle("N")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
-    chain.Draw("count>>h1", condition, "colz")
+    chain.Draw("count>>h1", condition, "")
 
     TOT2 = int(h1.GetEntries())
     print("GOOD ENTRIES = {} ({:.2f}%)".format( TOT2, TOT2/float(TOT1)*100 ) )
@@ -188,8 +198,20 @@ for RUN in run:
     h1.GetXaxis().SetTitle("count")
     h1.GetYaxis().SetTitle("gemroc")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-    chain.Draw("gemroc:count>>h1", condition, "count")
+    chain.Draw("gemroc:count>>h1", condition, "colz")
     
+
+    bin_max = h1.ProjectionX().GetMaximumBin()
+    print( "\nBIN MAX = {}".format(bin_max) )
+    l1count_cut = h1.GetXaxis().GetBinCenter( bin_max ) + 10
+    print( "Cut on L1 COUNT set to {}\n".format(l1count_cut) )
+    f.write( "\nCut on L1 COUNT set to {}\n\n".format(l1count_cut) )
+    
+    line_cut = ROOT.TLine(l1count_cut, 0, l1count_cut, 15)
+    line_cut.Draw()
+    line_cut.SetLineStyle(7)
+    line_cut.SetLineWidth(1)
+
     c1.Update()
     c1.SaveAs("{}/COUNTvsGEMROC.pdf".format(path))
     c1.SaveAs("{}/COUNTvsGEMROC.png".format(path))
@@ -212,6 +234,10 @@ for RUN in run:
     print("l1ts_min_tcoarse errors from TIGER 0-3 = {} ({:.2f}%)".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
     f.write("l1ts_min_tcoarse errors from TIGER 0-3 = {} ({:.2f}%)\n".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
     
+    line_cut.Draw()
+    line_cut.SetLineStyle(7)
+    line_cut.SetLineWidth(1)
+
     c1.Update()
     c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.pdf".format(path))
     c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.png".format(path))
@@ -228,6 +254,10 @@ for RUN in run:
     chain.Draw("gemroc:count>>h1", condition, "colz")
     print("l1ts_min_tcoarse errors from TIGER 4-7 = {} ({:.2f}%)".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
     f.write("l1ts_min_tcoarse errors from TIGER 4-7 = {} ({:.2f}%)\n".format( int(h1.GetEntries()), h1.GetEntries()/(TOT1-TOT2)*100 ) )
+
+    line_cut.Draw()
+    line_cut.SetLineStyle(7)
+    line_cut.SetLineWidth(1)
 
     c1.Update()
     c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.pdf".format(path))
@@ -261,6 +291,10 @@ for RUN in run:
             c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
             chain.Draw("subRunNo:count>>h1", condition, "colz")
 
+            line_cut.Draw()
+            line_cut.SetLineStyle(7)
+            line_cut.SetLineWidth(1)
+
             c1.Update()
             c1.SaveAs("{}/GEMROC_{}.pdf".format(path, roc))
             c1.SaveAs("{}/GEMROC_{}.png".format(path, roc))
@@ -268,17 +302,21 @@ for RUN in run:
             h1.Delete()
             c1.Close()
 
-            condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && count>30 && gemroc=={}".format(roc)
+            condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && count>{} && gemroc=={}".format(l1count_cut, roc)
             h1 = ROOT.TH1D("h1", condition, subrun_max, 0, subrun_max)
             h1.GetXaxis().SetTitle("subRunNo")
             h1.GetYaxis().SetTitle("N")
             c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
-            chain.Draw("subRunNo>>h1", condition, "*")
+            chain.Draw("subRunNo>>h1", condition, "")
             for subrun_bin in range(0, subrun_max):
                 N = int(h1.GetBinContent(subrun_bin))
                 if N > 0:
                     print( "BAD subRUN = {} ({})".format(subrun_bin - 1, N) )
                     f.write( "BAD subRUN = {}\n".format(subrun_bin - 1) )
+                    
+                    if not(subrun_bin - 1 in BAD_SUBRUNs_dec):
+                        BAD_SUBRUNs_dec.append(subrun_bin - 1)
+
 
             c1.Update()
             c1.SaveAs("{}/badSubRUN_GEMROC_{}.pdf".format(path, roc))
@@ -291,6 +329,11 @@ for RUN in run:
 
     #################################################################################
     #################################################################################
+
+    print( "\n\nBAD SUBRUNs from Decode: {}".format(BAD_SUBRUNs_dec) )
+    print( "BAD SUBRUNs from Event: {}".format(BAD_SUBRUNs) )
+    f.write( "\n\nBAD SUBRUNs from Decode: {}\n\n".format(BAD_SUBRUNs_dec) )
+    f.write( "BAD SUBRUNs from Event: {}".format(BAD_SUBRUNs) )
 
 
     print("\nDone\n\n")
