@@ -291,6 +291,7 @@ for RUN in run:
             c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
             chain.Draw("subRunNo:count>>h1", condition, "colz")
 
+            line_cut = ROOT.TLine(l1count_cut, 0, l1count_cut, subrun_max)
             line_cut.Draw()
             line_cut.SetLineStyle(7)
             line_cut.SetLineWidth(1)
