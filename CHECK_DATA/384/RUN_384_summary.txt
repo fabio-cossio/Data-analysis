@@ -8,6 +8,12 @@ SUBRUNs GOOD (decode) = []
 
 SUBRUNs GOOD (event)  = []
 
+SUBRUNs HOLES (event)  = []
+
+SUBRUNs LOW EVENTS (event)  = []
+
+SUBRUNs L1TS (event)  = [0]
+
 Difference between GOOD RUNS for Decode and Event: []
 
 GOOD RUNS present in Decode but not in Event: []

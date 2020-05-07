@@ -84,7 +84,6 @@ for RUN in run:
     f.close()
 
     l_good2 = [x for x in l_good if x not in l_toCut2]
-
     l_good2.sort()
     print ("SUBRUNs GOOD (decode) = {}\n".format(l_good2))
     f2.write("SUBRUNs GOOD (decode) = {}\n\n".format(l_good2))
@@ -93,10 +92,39 @@ for RUN in run:
     sub_run_good = list()
     for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/Sub_RUN_event*".format(RUN)):
         sub_run_good.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
-
     sub_run_good.sort()
     print ("SUBRUNs GOOD (event)  = {}\n".format(sub_run_good))
     f2.write("SUBRUNs GOOD (event)  = {}\n\n".format(sub_run_good))
+
+
+
+
+    sub_run_holes = list()
+    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/nofireFEB/Sub_RUN_event*".format(RUN)):
+        sub_run_holes.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
+    sub_run_holes.sort()
+    print ("SUBRUNs HOLES (event)  = {}\n".format(sub_run_holes))
+    f2.write("SUBRUNs HOLES (event)  = {}\n\n".format(sub_run_holes))
+
+
+
+    sub_run_lowEvents = list()
+    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/lowevent/Sub_RUN_event*".format(RUN)):
+        sub_run_lowEvents.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
+    sub_run_lowEvents.sort()
+    print ("SUBRUNs LOW EVENTS (event)  = {}\n".format(sub_run_lowEvents))
+    f2.write("SUBRUNs LOW EVENTS (event)  = {}\n\n".format(sub_run_lowEvents))
+
+
+
+    sub_run_l1ts = list()
+    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/tool1ts/Sub_RUN_event*".format(RUN)):
+        sub_run_l1ts.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
+    sub_run_l1ts.sort()
+    print ("SUBRUNs L1TS (event)  = {}\n".format(sub_run_l1ts))
+    f2.write("SUBRUNs L1TS (event)  = {}\n\n".format(sub_run_l1ts))
+
+
 
 
     l_dif = [i for i in l_good2 + sub_run_good if i not in l_good2 or i not in sub_run_good]
