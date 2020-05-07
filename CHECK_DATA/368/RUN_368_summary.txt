@@ -6,7 +6,11 @@ SUBRUNs to be CUT due to packets shift = [152, 159, 164, 169, 140, 153, 301, 193
 
 SUBRUNs GOOD (decode) = [1, 2, 156, 157, 158, 160, 161, 162, 163, 166, 167, 168, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 190]
 
-SUBRUNs GOOD (event)  = [1, 2, 156, 157, 160, 161, 162, 166, 167, 168, 170, 171, 172, 173, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 190]
+SUBRUNs GOOD (event)  = [1, 2, 156, 157, 160, 161, 162, 166, 167, 168, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 190]
 
-Difference between GOOD RUNS for Decode and Event: [158, 163, 174]
+Difference between GOOD RUNS for Decode and Event: [158, 163]
+
+GOOD RUNS present in Decode but not in Event: [158, 163]
+
+GOOD RUNS present in Event but not in Decode: []
 

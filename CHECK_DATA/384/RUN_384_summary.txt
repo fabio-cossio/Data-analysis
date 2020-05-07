@@ -10,3 +10,7 @@ SUBRUNs GOOD (event)  = []
 
 Difference between GOOD RUNS for Decode and Event: []
 
+GOOD RUNS present in Decode but not in Event: []
+
+GOOD RUNS present in Event but not in Decode: []
+

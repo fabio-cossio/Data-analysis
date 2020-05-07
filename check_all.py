@@ -103,4 +103,13 @@ for RUN in run:
     print( "Difference between GOOD RUNS for Decode and Event: {}\n\n".format(l_dif) )
     f2.write( "Difference between GOOD RUNS for Decode and Event: {}\n\n".format(l_dif) )
 
+    l_dif1 = [i for i in l_good2 if i not in sub_run_good]
+    print( "GOOD RUNS present in Decode but not in Event: {}\n\n".format(l_dif1) )
+    f2.write( "GOOD RUNS present in Decode but not in Event: {}\n\n".format(l_dif1) )
+
+    l_dif2 = [i for i in sub_run_good if i not in l_good2]
+    print( "GOOD RUNS present in Event but not in Decode: {}\n\n".format(l_dif2) )
+    f2.write( "GOOD RUNS present in Event but not in Decode: {}\n\n".format(l_dif2) )
+
+
     f2.close()
