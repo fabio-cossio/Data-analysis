@@ -29,6 +29,9 @@ else:
 
 home_folder = "/home/Fabio/analysis/Data-analysis"
 Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
+path = "{}/data_quality".format(home_folder)
+if not(os.path.isdir(path)):
+    os.mkdir(path)
 
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -69,7 +72,7 @@ print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run
 
 for RUN in run:
 
-    path = "{}/CHECK_DATA/{}".format(home_folder, RUN)
+    path = "{}/data_quality/{}".format(home_folder, RUN)
     if not(os.path.isdir(path)):
         os.mkdir(path)
     root_dir = "{}/root".format(path)
@@ -82,7 +85,7 @@ for RUN in run:
     if not( os.path.isdir( png_dir ) ):
         os.mkdir(png_dir)
 
-    f = open("{}/RUN_{}_log.txt".format(path, RUN), "w")
+    f = open("{}/RUN_{}_data_log.txt".format(path, RUN), "w")
 
     #################################################################################
     #################################################################################
@@ -452,7 +455,7 @@ for RUN in run:
 
 if full_analysis:
 
-    path = "{}/CHECK_DATA".format(home_folder)
+    path = "{}/data_quality".format(home_folder)
 
     ct1 = ROOT.TCanvas("ct1", "ct1", 100, 100, 1600, 1000)
     ht1.Draw()

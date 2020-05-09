@@ -1,0 +1,104 @@
+
+RUN = 376
+subRunNo MAX = 908
+L1 count MAX = 150
+TOTAL ENTRIES = 6922116
+TOTAL ENTRIES = 6918996 (3120 spurious removed, 0.05%)
+
+ANALYSIS ON L1TS_MIN_TCOARSE ERRORS
+GOOD ENTRIES = 6898594 (99.71%)
+ BAD ENTRIES = 20402 (0.29%)
+
+Cut on L1 COUNT set to 13.5
+
+l1ts_min_tcoarse errors from TIGER 0-3 = 1826 (8.95%)
+l1ts_min_tcoarse errors from TIGER 4-7 = 18576 (91.05%)
+
+
+GEMROC 0:
+BAD subRUN = 34 (318)
+BAD subRUN = 218 (546)
+BAD subRUN = 306 (412)
+BAD subRUN = 530 (189)
+BAD subRUN = 614 (2)
+BAD subRUN = 615 (5)
+BAD subRUN = 758 (144)
+BAD subRUN = 904 (535)
+
+GEMROC 1:
+BAD subRUN = 286 (4)
+BAD subRUN = 615 (8)
+
+GEMROC 2:
+BAD subRUN = 128 (113)
+BAD subRUN = 286 (19)
+BAD subRUN = 615 (5)
+BAD subRUN = 750 (11)
+BAD subRUN = 758 (417)
+
+GEMROC 3:
+BAD subRUN = 128 (210)
+BAD subRUN = 130 (514)
+BAD subRUN = 614 (3)
+BAD subRUN = 615 (17)
+BAD subRUN = 750 (1)
+
+GEMROC 4:
+BAD subRUN = 9 (261)
+BAD subRUN = 198 (407)
+BAD subRUN = 286 (5)
+BAD subRUN = 569 (479)
+BAD subRUN = 614 (4)
+BAD subRUN = 615 (13)
+
+GEMROC 5:
+BAD subRUN = 286 (5)
+BAD subRUN = 615 (2)
+BAD subRUN = 758 (233)
+
+GEMROC 6:
+
+GEMROC 7:
+BAD subRUN = 615 (1)
+
+GEMROC 8:
+BAD subRUN = 128 (69)
+BAD subRUN = 615 (5)
+
+GEMROC 9:
+BAD subRUN = 135 (172)
+BAD subRUN = 248 (394)
+BAD subRUN = 339 (97)
+BAD subRUN = 614 (10)
+BAD subRUN = 615 (6)
+BAD subRUN = 694 (242)
+BAD subRUN = 751 (5)
+BAD subRUN = 758 (195)
+
+GEMROC 10:
+BAD subRUN = 36 (454)
+BAD subRUN = 286 (9)
+BAD subRUN = 614 (13)
+BAD subRUN = 615 (2)
+BAD subRUN = 751 (8)
+
+GEMROC 12:
+
+GEMROC 13:
+BAD subRUN = 153 (266)
+BAD subRUN = 205 (286)
+BAD subRUN = 265 (421)
+BAD subRUN = 286 (1)
+BAD subRUN = 615 (12)
+BAD subRUN = 664 (283)
+BAD subRUN = 706 (176)
+BAD subRUN = 750 (5)
+BAD subRUN = 751 (4)
+BAD subRUN = 879 (403)
+
+
+BAD SUBRUNs from Decode: [34, 218, 306, 530, 614, 615, 758, 904, 286, 128, 750, 130, 9, 198, 569, 135, 248, 339, 694, 751, 36, 153, 205, 265, 664, 706, 879]
+
+BAD SUBRUNs from Event: [9, 34, 36, 49, 63, 89, 91, 92, 108, 114, 117, 119, 130, 135, 148, 168, 178, 190, 191, 198, 217, 218, 227, 248, 257, 278, 306, 352, 370, 388, 398, 453, 485, 511, 521, 554, 569, 582, 597, 662, 680, 694, 695, 699, 721, 749, 758, 770, 780, 787, 827, 843, 846, 904, 73, 81, 94, 111, 236, 360, 386, 552, 777]
+Done
+

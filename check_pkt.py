@@ -29,6 +29,9 @@ else:
 
 home_folder = "/home/Fabio/analysis/Data-analysis"
 Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
+path = "{}/data_quality".format(home_folder)
+if not(os.path.isdir(path)):
+    os.mkdir(path)
 
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -70,7 +73,7 @@ print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run
 
 for RUN in run:
 
-    path = "{}/CHECK_PACKETS/{}".format(home_folder, RUN)
+    path = "{}/data_quality/{}".format(home_folder, RUN)
     if not(os.path.isdir(path)):
         os.mkdir(path)
     root_dir = "{}/root".format(path)
@@ -83,7 +86,7 @@ for RUN in run:
     if not( os.path.isdir( png_dir ) ):
         os.mkdir(png_dir)
 
-    f = open("{}/RUN_{}_log.txt".format(path, RUN), "w")
+    f = open("{}/RUN_{}_pkt_log.txt".format(path, RUN), "w")
 
     #################################################################################
     #################################################################################
@@ -319,7 +322,7 @@ for RUN in run:
                 N = int(h1.GetBinContent(subrun_bin))
                 if N > 0:
                     print( "BAD subRUN = {} ({})".format(subrun_bin - 1, N) )
-                    f.write( "BAD subRUN = {}\n".format(subrun_bin - 1) )
+                    f.write( "BAD subRUN = {} ({})\n".format(subrun_bin - 1, N) )
                     
                     if not(subrun_bin - 1 in BAD_SUBRUNs_dec):
                         BAD_SUBRUNs_dec.append(subrun_bin - 1)

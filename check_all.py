@@ -17,6 +17,9 @@ import glob
 
 
 home_folder = "/home/Fabio/analysis/Data-analysis"
+path = "{}/data_quality".format(home_folder)
+if not(os.path.isdir(path)):
+    os.mkdir(path)
 
 
 try:
@@ -36,57 +39,69 @@ for RUN in run:
 
     print("\n\n\nAnalyzing RUN {}\n\n".format(RUN))
    
-    f2 = open("{}/CHECK_DATA/{}/RUN_{}_summary.txt".format(home_folder, RUN, RUN), "w")
-    f = open("{}/CHECK_DATA/{}/RUN_{}_log.txt".format(home_folder, RUN, RUN), "r")
+    f2 = open("{}/{}/RUN_{}_summary.txt".format(path, RUN, RUN), "w")
 
-    for line in f.readlines():
-        if "GOOD SUBRUNs" in line:
-            l_start = line.split("=")[-1].split("[")[-1].split("]")[0].split(", ")
-            #print l_start
-            #print type(l_start)
-            l_start = [int(x) for x in l_start]
-            print ("SUBRUNs with high ENTRIES = {}\n".format(l_start))
-            f2.write("SUBRUNs with high ENTRIES = {}\n\n".format(l_start))
+
+    #############################################################################################
+    #############################################################################################
+
+
+    with open("{}/{}/RUN_{}_data_log.txt".format(path, RUN, RUN), "r") as f:
+
+        for line in f.readlines():
+            if "GOOD SUBRUNs" in line:
+                l_start = line.split("=")[-1].split("[")[-1].split("]")[0].split(", ")
+                #print l_start
+                #print type(l_start)
+                l_start = [int(x) for x in l_start]
+                print ("SUBRUNs with high ENTRIES = {}\n".format(l_start))
+                f2.write("SUBRUNs with high ENTRIES = {}\n\n".format(l_start))
         
-        if "BAD SUBRUNs (holes) from Decode" in line:
-            l_toCut = line.split("[")[-1].split("]")[0].split(", ")
-            #print l_toCut
-            #print type(l_toCut)
-            try:
-                l_toCut = [int(x) for x in l_toCut]
-                print ("SUBRUNs to be CUT due to holes = {}\n".format(l_toCut))
-                f2.write("SUBRUNs to be CUT due to holes = {}\n\n".format(l_toCut))
-            except:
-                print("No SUBRUNs to be cut due to holes: {}\n".format(l_toCut))
-                f2.write("No SUBRUNs to be cut due to holes: {}\n\n".format(l_toCut))
-                l_toCut = list()
-    f.close()
+            if "BAD SUBRUNs (holes) from Decode" in line:
+                l_toCut = line.split("[")[-1].split("]")[0].split(", ")
+                #print l_toCut
+                #print type(l_toCut)
+                try:
+                    l_toCut = [int(x) for x in l_toCut]
+                    print ("SUBRUNs to be CUT due to holes = {}\n".format(l_toCut))
+                    f2.write("SUBRUNs to be CUT due to holes = {}\n\n".format(l_toCut))
+                except:
+                    print("No SUBRUNs to be cut due to holes: {}\n".format(l_toCut))
+                    f2.write("No SUBRUNs to be cut due to holes: {}\n\n".format(l_toCut))
+                    l_toCut = list()
 
     l_good = [x for x in l_start if x not in l_toCut]
     print ("SUBRUNs GOOD (# hits and holes) = {}\n".format(l_good))
 
 
-    f = open("{}/CHECK_PACKETS/{}/RUN_{}_log.txt".format(home_folder, RUN, RUN), "r")
+    #############################################################################################
+    #############################################################################################
 
-    for line in f.readlines():
-        if "BAD SUBRUNs from Decode" in line:
-            l_toCut2 = line.split("[")[-1].split("]")[0].split(", ")
-            #print l_toCut2
-            #print type(l_toCut2)
-            try:
-                l_toCut2 = [int(x) for x in l_toCut2]
-                print ("SUBRUNs to be CUT due to packets shift = {}\n".format(l_toCut2))
-                f2.write("SUBRUNs to be CUT due to packets shift = {}\n\n".format(l_toCut2))
-            except:
-                print("No SUBRUNs to be cut due to pakets shift: {}\n".format(l_toCut2))
-                f2.write("No SUBRUNs to be cut due to pakets shift: {}\n\n".format(l_toCut2))
-                l_toCut2 = list()
-    f.close()
+
+    with open("{}/{}/RUN_{}_pkt_log.txt".format(path, RUN, RUN), "r") as f:
+
+        for line in f.readlines():
+            if "BAD SUBRUNs from Decode" in line:
+                l_toCut2 = line.split("[")[-1].split("]")[0].split(", ")
+                #print l_toCut2
+                #print type(l_toCut2)
+                try:
+                    l_toCut2 = [int(x) for x in l_toCut2]
+                    print ("SUBRUNs to be CUT due to packets shift = {}\n".format(l_toCut2))
+                    f2.write("SUBRUNs to be CUT due to packets shift = {}\n\n".format(l_toCut2))
+                except:
+                    print("No SUBRUNs to be cut due to pakets shift: {}\n".format(l_toCut2))
+                    f2.write("No SUBRUNs to be cut due to pakets shift: {}\n\n".format(l_toCut2))
+                    l_toCut2 = list()
 
     l_good2 = [x for x in l_good if x not in l_toCut2]
     l_good2.sort()
     print ("SUBRUNs GOOD (decode) = {}\n".format(l_good2))
     f2.write("SUBRUNs GOOD (decode) = {}\n\n".format(l_good2))
+
+
+    #############################################################################################
+    #############################################################################################
 
 
     sub_run_good = list()
@@ -98,14 +113,12 @@ for RUN in run:
 
 
 
-
     sub_run_holes = list()
     for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/nofireFEB/Sub_RUN_event*".format(RUN)):
         sub_run_holes.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
     sub_run_holes.sort()
     print ("SUBRUNs HOLES (event)  = {}\n".format(sub_run_holes))
     f2.write("SUBRUNs HOLES (event)  = {}\n\n".format(sub_run_holes))
-
 
 
     sub_run_lowEvents = list()
@@ -116,7 +129,6 @@ for RUN in run:
     f2.write("SUBRUNs LOW EVENTS (event)  = {}\n\n".format(sub_run_lowEvents))
 
 
-
     sub_run_l1ts = list()
     for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/tool1ts/Sub_RUN_event*".format(RUN)):
         sub_run_l1ts.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
@@ -125,6 +137,9 @@ for RUN in run:
     f2.write("SUBRUNs L1TS (event)  = {}\n\n".format(sub_run_l1ts))
 
 
+
+    #############################################################################################
+    #############################################################################################
 
 
     l_dif = [i for i in l_good2 + sub_run_good if i not in l_good2 or i not in sub_run_good]
