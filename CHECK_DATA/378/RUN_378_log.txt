@@ -43,8 +43,8 @@ GEMROC	FEB
 
 BAD SUBRUNs (low hits) from Decode: [-1, 0, 1, 2, 6, 14, 19, 23, 27, 28, 30, 31, 39, 44, 54, 77, 78, 84, 90, 96, 97, 99, 102, 119, 120, 122]
 
-BAD SUBRUNs (low events) from Event: [1, 6, 9, 19, 30, 31, 34, 39, 44, 47, 49, 62, 65, 77, 78, 82, 87, 90, 106, 110, 119, 120, 122]
+BAD SUBRUNs (low events) from Event: [1, 6, 9, 19, 30, 31, 39, 44, 47, 48, 49, 62, 65, 70, 77, 78, 82, 87, 90, 107, 110, 119, 120, 122]
 
 BAD SUBRUNs (holes) from Decode: [34, 49, 53, 82, 106, 115]
 
-BAD SUBRUNs (holes) from Event: [33, 53, 100, 103, 115]
+BAD SUBRUNs (holes) from Event: [34, 53, 106, 115, 1, 6, 19, 30, 31, 39, 44, 49, 77, 78, 82, 90, 119, 120, 122]

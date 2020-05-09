@@ -27,6 +27,8 @@ else:
     sys.exit()
 
 
+home_folder = "/home/Fabio/analysis/Data-analysis"
+Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
 
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -35,9 +37,6 @@ ROOT.gErrorIgnoreLevel = ROOT.kWarning
 
 #################################################################################
 #################################################################################
-
-home_folder = "/home/Fabio/analysis/Data-analysis"
-
 
 
 full_analysis = False
@@ -71,11 +70,18 @@ print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run
 
 for RUN in run:
 
-
-
     path = "{}/CHECK_PACKETS/{}".format(home_folder, RUN)
     if not(os.path.isdir(path)):
         os.mkdir(path)
+    root_dir = "{}/root".format(path)
+    if not( os.path.isdir( root_dir ) ):
+        os.mkdir(root_dir)
+    pdf_dir = "{}/pdf".format(path)
+    if not( os.path.isdir( pdf_dir ) ):
+        os.mkdir(pdf_dir)
+    png_dir = "{}/png".format(path)
+    if not( os.path.isdir( png_dir ) ):
+        os.mkdir(png_dir)
 
     f = open("{}/RUN_{}_log.txt".format(path, RUN), "w")
 
@@ -83,8 +89,8 @@ for RUN in run:
     #################################################################################
 
 
-    data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}".format(RUN)
-    
+    data_path = "{}{}".format(Data_path, RUN)
+
 
     BAD_SUBRUNs = list()
     for name in glob.glob("{}/badSubRUN/tool1ts/Sub_RUN_event*".format(data_path)):
@@ -150,9 +156,9 @@ for RUN in run:
     f.write("TOTAL ENTRIES = {} ({} spurious removed, {:.2f}%)\n".format( TOT1, TOT-TOT1, (TOT-TOT1)/float(TOT)*100 ) )
 
     c1.Update()
-    c1.SaveAs("{}/count.pdf".format(path))
-    c1.SaveAs("{}/count.png".format(path))
-    c1.SaveAs("{}/count.root".format(path))
+    c1.SaveAs("{}/count.pdf".format(pdf_dir))
+    c1.SaveAs("{}/count.png".format(png_dir))
+    c1.SaveAs("{}/count.root".format(root_dir))
     h1.Delete()
     c1.Close()
     #gSystem.ProcessEvents()
@@ -178,9 +184,9 @@ for RUN in run:
     f.write("GOOD ENTRIES = {} ({:.2f}%)\n".format( TOT2, TOT2/float(TOT1)*100 ) )
 
     c1.Update()
-    c1.SaveAs("{}/good.pdf".format(path))
-    c1.SaveAs("{}/good.png".format(path))
-    c1.SaveAs("{}/good.root".format(path))
+    c1.SaveAs("{}/good.pdf".format(pdf_dir))
+    c1.SaveAs("{}/good.png".format(png_dir))
+    c1.SaveAs("{}/good.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -213,9 +219,9 @@ for RUN in run:
     line_cut.SetLineWidth(1)
 
     c1.Update()
-    c1.SaveAs("{}/COUNTvsGEMROC.pdf".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC.png".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC.root".format(path))
+    c1.SaveAs("{}/COUNTvsGEMROC.pdf".format(pdf_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC.png".format(png_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -239,9 +245,9 @@ for RUN in run:
     line_cut.SetLineWidth(1)
 
     c1.Update()
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.pdf".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.png".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.root".format(path))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.pdf".format(pdf_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.png".format(png_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER03.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -260,9 +266,9 @@ for RUN in run:
     line_cut.SetLineWidth(1)
 
     c1.Update()
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.pdf".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.png".format(path))
-    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.root".format(path))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.pdf".format(pdf_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.png".format(png_dir))
+    c1.SaveAs("{}/COUNTvsGEMROC_TIGER47.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -297,9 +303,9 @@ for RUN in run:
             line_cut.SetLineWidth(1)
 
             c1.Update()
-            c1.SaveAs("{}/GEMROC_{}.pdf".format(path, roc))
-            c1.SaveAs("{}/GEMROC_{}.png".format(path, roc))
-            c1.SaveAs("{}/GEMROC_{}.root".format(path, roc))
+            c1.SaveAs("{}/GEMROC_{}.pdf".format(pdf_dir, roc))
+            c1.SaveAs("{}/GEMROC_{}.png".format(png_dir, roc))
+            c1.SaveAs("{}/GEMROC_{}.root".format(root_dir, roc))
             h1.Delete()
             c1.Close()
 
@@ -320,9 +326,9 @@ for RUN in run:
 
 
             c1.Update()
-            c1.SaveAs("{}/badSubRUN_GEMROC_{}.pdf".format(path, roc))
-            c1.SaveAs("{}/badSubRUN_GEMROC_{}.png".format(path, roc))
-            c1.SaveAs("{}/badSubRUN_GEMROC_{}.root".format(path, roc))
+            c1.SaveAs("{}/badSubRUN_GEMROC_{}.pdf".format(pdf_dir, roc))
+            c1.SaveAs("{}/badSubRUN_GEMROC_{}.png".format(png_dir, roc))
+            c1.SaveAs("{}/badSubRUN_GEMROC_{}.root".format(root_dir, roc))
             h1.Delete()
             c1.Close()
 

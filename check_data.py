@@ -27,7 +27,8 @@ else:
     print("ERROR: OS {} non compatible".format(OS))
     sys.exit()
 
-
+home_folder = "/home/Fabio/analysis/Data-analysis"
+Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
 
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -36,9 +37,6 @@ ROOT.gErrorIgnoreLevel = ROOT.kWarning
 
 #################################################################################
 #################################################################################
-
-home_folder = "/home/Fabio/analysis/Data-analysis"
-
 
 full_analysis = False
 
@@ -74,6 +72,15 @@ for RUN in run:
     path = "{}/CHECK_DATA/{}".format(home_folder, RUN)
     if not(os.path.isdir(path)):
         os.mkdir(path)
+    root_dir = "{}/root".format(path)
+    if not( os.path.isdir( root_dir ) ):
+        os.mkdir(root_dir)
+    pdf_dir = "{}/pdf".format(path)
+    if not( os.path.isdir( pdf_dir ) ):
+        os.mkdir(pdf_dir)
+    png_dir = "{}/png".format(path)
+    if not( os.path.isdir( png_dir ) ):
+        os.mkdir(png_dir)
 
     f = open("{}/RUN_{}_log.txt".format(path, RUN), "w")
 
@@ -81,7 +88,7 @@ for RUN in run:
     #################################################################################
 
 
-    data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}".format(RUN)
+    data_path = "{}{}".format(Data_path, RUN)
 
 
 
@@ -174,9 +181,9 @@ for RUN in run:
     line_cut.Draw()
 
     c2.Update()
-    c2.SaveAs("{}/Hits.pdf".format(path))
-    c2.SaveAs("{}/Hits.png".format(path))
-    c2.SaveAs("{}/Hits.root".format(path))
+    c2.SaveAs("{}/Hits.pdf".format(pdf_dir))
+    c2.SaveAs("{}/Hits.png".format(png_dir))
+    c2.SaveAs("{}/Hits.root".format(root_dir))
     h2.Delete()
     c2.Close()
 
@@ -225,6 +232,14 @@ for RUN in run:
     h1.GetYaxis().SetTitle("TIGER")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
     chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
+
+    line_tiger = list()
+    for i in range(0, 23):
+        line_tiger.append(ROOT.TLine(0, i*4, subrun_max, i*4))
+        line_tiger[i].Draw()
+        line_tiger[i].SetLineStyle(7)
+        line_tiger[i].SetLineWidth(1)
+
     
     h2 = ROOT.TH1D("h2", "No hits (TIGER)", 100, 0, 100)
     h2.GetXaxis().SetTitle("TIGER")
@@ -249,9 +264,9 @@ for RUN in run:
 
 
     c1.Update()
-    c1.SaveAs("{}/Hits_vs_TIGER.pdf".format(path))
-    c1.SaveAs("{}/Hits_vs_TIGER.png".format(path))
-    c1.SaveAs("{}/Hits_vs_TIGER.root".format(path))
+    c1.SaveAs("{}/Hits_vs_TIGER.pdf".format(pdf_dir))
+    c1.SaveAs("{}/Hits_vs_TIGER.png".format(png_dir))
+    c1.SaveAs("{}/Hits_vs_TIGER.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -259,9 +274,9 @@ for RUN in run:
     h2.Draw()
 
     c2.Update()
-    c2.SaveAs("{}/noHits_TIGER.pdf".format(path))
-    c2.SaveAs("{}/noHits_TIGER.png".format(path))
-    c2.SaveAs("{}/noHits_TIGER.root".format(path))
+    c2.SaveAs("{}/noHits_TIGER.pdf".format(pdf_dir))
+    c2.SaveAs("{}/noHits_TIGER.png".format(png_dir))
+    c2.SaveAs("{}/noHits_TIGER.root".format(root_dir))
     h2.Delete()
     c2.Close()
 
@@ -287,13 +302,21 @@ for RUN in run:
         c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
         chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
         h1.SetStats(0)
+
+        line_tiger = list()
+        for i in range(0, 23):
+            line_tiger.append(ROOT.TLine(start, i*4, stop, i*4))
+            line_tiger[i].Draw()
+            line_tiger[i].SetLineStyle(7)
+            line_tiger[i].SetLineWidth(1)
+
         #gPad->Update()
         #h1.FindObject("stats")
 
         c1.Update()
-        c1.SaveAs("{}/Hits_vs_TIGER_{}.pdf".format(path,start))
-        c1.SaveAs("{}/Hits_vs_TIGER_{}.png".format(path,start))
-        c1.SaveAs("{}/Hits_vs_TIGER_{}.root".format(path,start))
+        c1.SaveAs("{}/Hits_vs_TIGER_{}.pdf".format(pdf_dir, start))
+        c1.SaveAs("{}/Hits_vs_TIGER_{}.png".format(png_dir, start))
+        c1.SaveAs("{}/Hits_vs_TIGER_{}.root".format(root_dir, start))
         h1.Delete()
         c1.Close()
 
@@ -333,9 +356,9 @@ for RUN in run:
                             ht2.Fill(FEB)
 
     c1.Update()
-    c1.SaveAs("{}/Hits_vs_FEB.pdf".format(path))
-    c1.SaveAs("{}/Hits_vs_FEB.png".format(path))
-    c1.SaveAs("{}/Hits_vs_FEB.root".format(path))
+    c1.SaveAs("{}/Hits_vs_FEB.pdf".format(pdf_dir))
+    c1.SaveAs("{}/Hits_vs_FEB.png".format(png_dir))
+    c1.SaveAs("{}/Hits_vs_FEB.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -343,9 +366,9 @@ for RUN in run:
     h2.Draw()
 
     c2.Update()
-    c2.SaveAs("{}/noHits_FEB.pdf".format(path))
-    c2.SaveAs("{}/noHits_FEB.png".format(path))
-    c2.SaveAs("{}/noHits_FEB.root".format(path))
+    c2.SaveAs("{}/noHits_FEB.pdf".format(pdf_dir))
+    c2.SaveAs("{}/noHits_FEB.png".format(png_dir))
+    c2.SaveAs("{}/noHits_FEB.root".format(root_dir))
     h2.Delete()
     c2.Close()
 
@@ -383,9 +406,9 @@ for RUN in run:
                         ht3.Fill(ROC)
 
     c1.Update()
-    c1.SaveAs("{}/Hits_vs_GEMROC.pdf".format(path))
-    c1.SaveAs("{}/Hits_vs_GEMROC.png".format(path))
-    c1.SaveAs("{}/Hits_vs_GEMROC.root".format(path))
+    c1.SaveAs("{}/Hits_vs_GEMROC.pdf".format(pdf_dir))
+    c1.SaveAs("{}/Hits_vs_GEMROC.png".format(png_dir))
+    c1.SaveAs("{}/Hits_vs_GEMROC.root".format(root_dir))
     h1.Delete()
     c1.Close()
 
@@ -393,9 +416,9 @@ for RUN in run:
     h2.Draw()
 
     c2.Update()
-    c2.SaveAs("{}/noHits_GEMROC.pdf".format(path))
-    c2.SaveAs("{}/noHits_GEMROC.png".format(path))
-    c2.SaveAs("{}/noHits_GEMROC.root".format(path))
+    c2.SaveAs("{}/noHits_GEMROC.pdf".format(pdf_dir))
+    c2.SaveAs("{}/noHits_GEMROC.png".format(png_dir))
+    c2.SaveAs("{}/noHits_GEMROC.root".format(root_dir))
     h2.Delete()
     c2.Close()
 
@@ -422,6 +445,10 @@ for RUN in run:
 
 
 
+
+
+########################################################################
+##  ALL RUN TOGETHER
 
 if full_analysis:
 
