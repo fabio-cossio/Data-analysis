@@ -340,6 +340,10 @@ for RUN in run:
     #################################################################################
     #################################################################################
 
+
+    BAD_SUBRUNs_dec.sort()
+    BAD_SUBRUNs.sort()
+
     print( "\n\nBAD SUBRUNs from Decode: {}".format(BAD_SUBRUNs_dec) )
     print( "BAD SUBRUNs from Event: {}".format(BAD_SUBRUNs) )
     f.write( "\n\nBAD SUBRUNs from Decode: {}\n\n".format(BAD_SUBRUNs_dec) )

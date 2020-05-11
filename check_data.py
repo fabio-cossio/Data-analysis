@@ -426,6 +426,11 @@ for RUN in run:
     c2.Close()
 
 
+    BAD_SUBRUNs_low_dec.sort()
+    BAD_SUBRUNs_low.sort()
+    BAD_SUBRUNs_holes_dec.sort()
+    BAD_SUBRUNs_holes.sort()
+
 
     print( "\n\nBAD SUBRUNs (low hits) from Decode: {}".format(BAD_SUBRUNs_low_dec) )
     print( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )

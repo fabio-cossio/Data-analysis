@@ -46,6 +46,6 @@ GEMROC 13:
 
 BAD SUBRUNs from Decode: [15, 105]
 
-BAD SUBRUNs from Event: [12, 15, 50, 89, 105, 114, 9, 47, 107]
+BAD SUBRUNs from Event: [9, 12, 15, 47, 50, 89, 105, 107, 114]
 Done
 

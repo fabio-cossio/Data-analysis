@@ -53,8 +53,8 @@ GEMROC 12:
 GEMROC 13:
 
 
-BAD SUBRUNs from Decode: [152, 159, 164, 169, 140, 153, 301, 193, 281]
+BAD SUBRUNs from Decode: [140, 152, 153, 159, 164, 169, 193, 281, 301]
 
-BAD SUBRUNs from Event: [164, 169, 281, 159]
+BAD SUBRUNs from Event: [159, 164, 169, 281]
 Done
 
