@@ -2,21 +2,21 @@ SUBRUNs with high ENTRIES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1
 
 No SUBRUNs to be cut due to holes: ['']
 
-SUBRUNs to be CUT due to packets shift = [30, 89, 90, 91]
+SUBRUNs to be CUT due to packets shift = [90, 91]
 
-SUBRUNs GOOD (decode) = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 32, 33, 34, 36, 37, 38, 40, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58, 59, 60, 62, 63, 65, 66, 67, 69, 70, 71, 72, 73, 74, 75, 76, 77, 79, 80, 81, 82, 84, 85, 87, 88]
+SUBRUNs GOOD (decode) = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 40, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58, 59, 60, 62, 63, 65, 66, 67, 69, 70, 71, 72, 73, 74, 75, 76, 77, 79, 80, 81, 82, 84, 85, 87, 88, 89]
 
 SUBRUNs GOOD (event)  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 36, 37, 38, 40, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58, 59, 60, 62, 63, 66, 67, 69, 70, 71, 72, 73, 74, 75, 76, 77, 79, 80, 81, 82, 84, 85, 87, 88, 89]
 
 SUBRUNs HOLES (event)  = [91]
 
-SUBRUNs LOW EVENTS (event)  = [17, 20, 33, 35, 39, 41, 42, 61, 64, 65, 90]
+SUBRUNs LOW EVENTS (event)  = [17, 20, 33, 35, 39, 41, 42, 61, 64, 65, 78, 90]
 
-SUBRUNs L1TS (event)  = [78]
+SUBRUNs L1TS (event)  = []
 
-Difference between GOOD RUNS for Decode and Event: [33, 65, 30, 89]
+Difference between GOOD RUNS for Decode and Event: [33, 65]
 
 GOOD RUNS present in Decode but not in Event: [33, 65]
 
-GOOD RUNS present in Event but not in Decode: [30, 89]
+GOOD RUNS present in Event but not in Decode: []
 

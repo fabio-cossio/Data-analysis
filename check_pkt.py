@@ -26,8 +26,8 @@ else:
     print("ERROR: OS {} non compatible".format(OS))
     sys.exit()
 
-
-home_folder = "/home/Fabio/analysis/Data-analysis"
+home_folder = os.getcwd()
+#home_folder = "/home/Fabio/analysis/Data-analysis"
 Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
 path = "{}/data_quality".format(home_folder)
 if not(os.path.isdir(path)):
@@ -47,7 +47,7 @@ full_analysis = False
 try:
 
     if sys.argv[1] == "all":
-        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385]
+        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
 
         full_analysis = True
         ht1 = ROOT.TH1D("ht1", "No hits (TIGER) all RUNs", 100, 0, 100)
@@ -208,11 +208,10 @@ for RUN in run:
     h1.GetYaxis().SetTitle("gemroc")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
     chain.Draw("gemroc:count>>h1", condition, "colz")
-    
 
     bin_max = h1.ProjectionX().GetMaximumBin()
     print( "\nBIN MAX = {}".format(bin_max) )
-    l1count_cut = h1.GetXaxis().GetBinCenter( bin_max ) + 10
+    l1count_cut = h1.GetXaxis().GetBinCenter( bin_max ) + 15
     print( "Cut on L1 COUNT set to {}\n".format(l1count_cut) )
     f.write( "\nCut on L1 COUNT set to {}\n\n".format(l1count_cut) )
     
@@ -228,6 +227,25 @@ for RUN in run:
     h1.Delete()
     c1.Close()
 
+
+    condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566)"
+    h1 = ROOT.TH2D("h1", condition, l1count_max, 0, l1count_max, subrun_max, 0, subrun_max)
+    h1.GetXaxis().SetTitle("count")
+    h1.GetYaxis().SetTitle("subRunNo")
+    c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
+    chain.Draw("subRunNo:count>>h1", condition, "colz")
+
+    line_cut = ROOT.TLine(l1count_cut, 0, l1count_cut, subrun_max)
+    line_cut.Draw()
+    line_cut.SetLineStyle(7)
+    line_cut.SetLineWidth(1)
+
+    c1.Update()
+    c1.SaveAs("{}/SUBRUNvsCOUNT.pdf".format(pdf_dir))
+    c1.SaveAs("{}/SUBRUNvsCOUNT.png".format(png_dir))
+    c1.SaveAs("{}/SUBRUNvsCOUNT.root".format(root_dir))
+    h1.Delete()
+    c1.Close()
 
 
 
@@ -312,6 +330,13 @@ for RUN in run:
             h1.Delete()
             c1.Close()
 
+            condition = "(delta_coarse==25 || delta_coarse==26) && count>{} && gemroc=={}".format(l1count_cut, roc)
+            h2 = ROOT.TH1D("h2", condition, subrun_max, 0, subrun_max)
+            h2.GetXaxis().SetTitle("subRunNo")
+            h2.GetYaxis().SetTitle("N")
+            c2 = ROOT.TCanvas("c22", "c22", 100, 100, 1800, 1200)
+            chain.Draw("subRunNo>>h2", condition, "")
+
             condition = "(delta_coarse==25 || delta_coarse==26) && (l1ts_min_tcoarse<1300 || l1ts_min_tcoarse>1566) && count>{} && gemroc=={}".format(l1count_cut, roc)
             h1 = ROOT.TH1D("h1", condition, subrun_max, 0, subrun_max)
             h1.GetXaxis().SetTitle("subRunNo")
@@ -320,12 +345,15 @@ for RUN in run:
             chain.Draw("subRunNo>>h1", condition, "")
             for subrun_bin in range(0, subrun_max):
                 N = int(h1.GetBinContent(subrun_bin))
-                if N > 0:
-                    print( "BAD subRUN = {} ({})".format(subrun_bin - 1, N) )
-                    f.write( "BAD subRUN = {} ({})\n".format(subrun_bin - 1, N) )
+                D = int(h2.GetBinContent(subrun_bin))
+                if D > 0:
+                    bad_perc = N / float(D) * 100
+                    if bad_perc > 2:
+                        print( "BAD subRUN = {} ({}, {:.2f}%)".format(subrun_bin - 1, N, bad_perc) )
+                        f.write( "BAD subRUN = {} ({}, {:.2f}%)\n".format(subrun_bin - 1, N, bad_perc) )
                     
-                    if not(subrun_bin - 1 in BAD_SUBRUNs_dec):
-                        BAD_SUBRUNs_dec.append(subrun_bin - 1)
+                        if not(subrun_bin - 1 in BAD_SUBRUNs_dec):
+                            BAD_SUBRUNs_dec.append(subrun_bin - 1)
 
 
             c1.Update()
@@ -335,7 +363,8 @@ for RUN in run:
             h1.Delete()
             c1.Close()
 
-
+            h2.Delete()
+            c2.Close()
 
     #################################################################################
     #################################################################################

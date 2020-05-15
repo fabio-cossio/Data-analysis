@@ -14,21 +14,24 @@ import glob
 
 #############################################################
 
-
-
-home_folder = "/home/Fabio/analysis/Data-analysis"
+home_folder = os.getcwd()
+#home_folder = "/home/Fabio/analysis/Data-analysis"
 path = "{}/data_quality".format(home_folder)
 if not(os.path.isdir(path)):
     os.mkdir(path)
 
 
 try:
-    if sys.argv[1] == "full":
-        os.system("python check_data.py all")
-        os.system("python check_pkt.py all")
-        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385]
+    if len(sys.argv)==3 and sys.argv[1] == "full":
+        run = [int(sys.argv[2])]
+        os.system( "python check_data.py {}".format(run[0]) )
+        os.system( "python check_pkt.py {}".format(run[0]) )
+    elif len(sys.argv)==2 and sys.argv[1] == "full":
+        os.system( "python check_data.py all" )
+        os.system( "python check_pkt.py all" )
+        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
     elif sys.argv[1] == "all":
-        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385]
+        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
     else:
         run = [int(sys.argv[1])]
 except:

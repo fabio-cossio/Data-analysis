@@ -9,7 +9,7 @@ ANALYSIS ON L1TS_MIN_TCOARSE ERRORS
 GOOD ENTRIES = 256895 (99.99%)
  BAD ENTRIES = 15 (0.01%)
 
-Cut on L1 COUNT set to 457.5
+Cut on L1 COUNT set to 462.5
 
 l1ts_min_tcoarse errors from TIGER 0-3 = 0 (0.00%)
 l1ts_min_tcoarse errors from TIGER 4-7 = 15 (100.00%)

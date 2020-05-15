@@ -27,7 +27,8 @@ else:
     print("ERROR: OS {} non compatible".format(OS))
     sys.exit()
 
-home_folder = "/home/Fabio/analysis/Data-analysis"
+home_folder = os.getcwd()
+#home_folder = "/home/Fabio/analysis/Data-analysis"
 Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
 path = "{}/data_quality".format(home_folder)
 if not(os.path.isdir(path)):
@@ -46,7 +47,7 @@ full_analysis = False
 try:
 
     if sys.argv[1] == "all":
-        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385]
+        run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
 
         full_analysis = True
         ht1 = ROOT.TH1D("ht1", "No hits (TIGER) all RUNs", 100, 0, 100)
