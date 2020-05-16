@@ -303,7 +303,7 @@ for RUN in run:
     #################################################################################
     ## 5. GEMROC
 
-    for roc in range(0, 14):
+    for roc in range(0, 11):
         if roc == 11:
             continue
         else:

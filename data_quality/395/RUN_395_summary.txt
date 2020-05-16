@@ -1,4 +1,4 @@
-SUBRUNs with high ENTRIES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26]
+SUBRUNs to be CUT due to low hits = [-1, 0, 12, 19]
 
 SUBRUNs to be CUT due to holes = [4, 6, 7, 10, 22, 25]
 
@@ -8,15 +8,17 @@ SUBRUNs GOOD (decode) = [2, 3, 5, 8, 11, 13, 14, 15, 16, 17, 18, 20, 21, 23, 24,
 
 SUBRUNs GOOD (event)  = [2, 3, 5, 8, 11, 13, 14, 15, 16, 17, 18, 20, 21, 23, 24, 26]
 
-SUBRUNs HOLES (event)  = [4, 6, 7, 10, 12, 19, 22, 25]
-
 SUBRUNs LOW EVENTS (event)  = []
+
+SUBRUNs HOLES (event)  = [4, 6, 7, 10, 12, 19, 22, 25]
 
 SUBRUNs L1TS (event)  = [1, 9]
 
-Difference between GOOD RUNS for Decode and Event: []
 
-GOOD RUNS present in Decode but not in Event: []
 
-GOOD RUNS present in Event but not in Decode: []
+Difference between GOOD subRUNs for Decode and Event: []
 
+GOOD subRUNs present in Decode but not in Event: []
+
+
+GOOD subRUNs present in Event but not in Decode: []

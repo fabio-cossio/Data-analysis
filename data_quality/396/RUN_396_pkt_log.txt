@@ -48,10 +48,6 @@ GEMROC 10:
 BAD subRUN = 1 (189, 27.08%)
 BAD subRUN = 171 (267, 39.15%)
 
-GEMROC 12:
-
-GEMROC 13:
-
 
 BAD SUBRUNs from Decode: [1, 99, 141, 147, 171]
 

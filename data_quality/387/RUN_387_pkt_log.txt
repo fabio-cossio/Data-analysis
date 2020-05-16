@@ -40,10 +40,6 @@ GEMROC 9:
 
 GEMROC 10:
 
-GEMROC 12:
-
-GEMROC 13:
-
 
 BAD SUBRUNs from Decode: [42, 68, 82]
 
