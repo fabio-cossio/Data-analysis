@@ -1,3 +1,4 @@
+import sys
 import GEM_OFFLINE_classes
 #path=raw_input("Insert path:")
 #path="RUN_320"
@@ -10,8 +11,10 @@ import GEM_OFFLINE_classes
 
 data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_dat/"
 
-
-run = "RUN_375"
+try:
+    run = "RUN_{}".format(sys.argv[1])
+except:
+    run = "RUN_375"
 
 
 path = data_path + run
