@@ -158,7 +158,7 @@ class reader:
         f.close()
         #print outfile
         temp = outfile.split("/")[-1]
-        outfile = "/home/Fabio/analysis/Data-analysis/DECODE/outputs/" + temp
+        outfile = "/home/Fabio/analysis/Data-analysis/DECODE/text_files/" + temp
         #print outfile
         previous_L1_TS = 0
         L1_TS_abs_diff = 0

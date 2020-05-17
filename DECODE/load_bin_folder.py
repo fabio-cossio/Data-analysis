@@ -11,7 +11,7 @@ import GEM_OFFLINE_classes
 data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_dat/"
 
 
-run = "RUN_351"
+run = "RUN_375"
 
 
 path = data_path + run
