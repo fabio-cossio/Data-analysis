@@ -24,15 +24,28 @@ if OS == 'win32':
 elif OS == 'linux2' or OS == "linux":
     sep = '/'
 else:
-    print("ERROR: OS {} non compatible".format(OS))
+    print("ERROR: OS {} not compatible".format(OS))
     sys.exit()
 
-home_folder = os.getcwd()
-#home_folder = "/home/Fabio/analysis/Data-analysis"
-Data_path = "/dati/Data_CGEM_IHEP_Integration_2019/raw_root/"
-path = "{}/data_quality".format(home_folder)
-if not(os.path.isdir(path)):
-    os.mkdir(path)
+
+code_path = os.environ["QAQC_code"]
+print("QAQC code path: {}".format(code_path))
+out_path = os.environ["QAQC_out"]
+print("QAQC output path: {}".format(out_path))
+show_path = os.environ["QAQC_show"]
+print("QAQC show path: {}".format(show_path))
+data_path = os.environ["data"]
+print("Data path: {}".format(data_path))
+
+Data_path = "{}/raw_root".format(data_path)
+
+
+
+
+#home_folder = os.getcwd()
+#path = "{}/data_quality".format(home_folder)
+#if not(os.path.isdir(path)):
+#    os.mkdir(path)
 
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -73,7 +86,10 @@ print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run
 
 for RUN in run:
 
-    path = "{}/data_quality/{}".format(home_folder, RUN)
+    run_path = "{}/{}".format(out_path, RUN)
+    if not(os.path.isdir(run_path)):
+        os.mkdir(run_path)
+    path = "{}/decode_check".format(run_path)
     if not(os.path.isdir(path)):
         os.mkdir(path)
     root_dir = "{}/root".format(path)
@@ -85,17 +101,20 @@ for RUN in run:
     png_dir = "{}/png".format(path)
     if not( os.path.isdir( png_dir ) ):
         os.mkdir(png_dir)
+    log_dir = "{}/log".format(path)
+    if not( os.path.isdir( log_dir ) ):
+        os.mkdir(log_dir)
 
-    f = open("{}/RUN_{}_data_log.txt".format(path, RUN), "w")
+    f = open("{}/RUN_{}_data_log.txt".format(log_dir, RUN), "w")
 
     #################################################################################
     #################################################################################
 
 
-    data_path = "{}{}".format(Data_path, RUN)
+    data_path = "{}/{}".format(Data_path, RUN)
 
 
-
+    """
     BAD_SUBRUNs_low = list()
     BAD_SUBRUNs_holes = list()
     for name in glob.glob("{}/badSubRUN/lowevent/Sub_RUN_event*".format(data_path)):
@@ -105,7 +124,7 @@ for RUN in run:
 
     #print BAD_SUBRUNs_low
     #print BAD_SUBRUNs_holes
-
+    """
 
     BAD_SUBRUNs_low_dec = list()
     BAD_SUBRUNs_holes_dec = list()
@@ -428,20 +447,20 @@ for RUN in run:
 
 
     BAD_SUBRUNs_low_dec.sort()
-    BAD_SUBRUNs_low.sort()
+    #BAD_SUBRUNs_low.sort()
     BAD_SUBRUNs_holes_dec.sort()
-    BAD_SUBRUNs_holes.sort()
+    #BAD_SUBRUNs_holes.sort()
 
 
     print( "\n\nBAD SUBRUNs (low hits) from Decode: {}".format(BAD_SUBRUNs_low_dec) )
-    print( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
+    #print( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
     f.write( "\n\nBAD SUBRUNs (low hits) from Decode: {}\n\n".format(BAD_SUBRUNs_low_dec) )
-    f.write( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
+    #f.write( "BAD SUBRUNs (low events) from Event: {}".format(BAD_SUBRUNs_low) )
 
     print( "\n\nBAD SUBRUNs (holes) from Decode: {}".format(BAD_SUBRUNs_holes_dec) )
-    print( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
+    #print( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
     f.write( "\n\nBAD SUBRUNs (holes) from Decode: {}\n\n".format(BAD_SUBRUNs_holes_dec) )
-    f.write( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
+    #f.write( "BAD SUBRUNs (holes) from Event: {}".format(BAD_SUBRUNs_holes) )
 
 
 
@@ -455,7 +474,7 @@ for RUN in run:
 
 
 
-
+"""
 ########################################################################
 ##  ALL RUN TOGETHER
 
@@ -490,6 +509,7 @@ if full_analysis:
     ht3.Delete()
     ct3.Close()
 
+"""
 
 
 

@@ -14,11 +14,36 @@ import glob
 
 #############################################################
 
-home_folder = os.getcwd()
-#home_folder = "/home/Fabio/analysis/Data-analysis"
-path = "{}/data_quality".format(home_folder)
-if not(os.path.isdir(path)):
-    os.mkdir(path)
+
+
+OS = sys.platform
+if OS == 'win32':
+    sep = '\\'
+elif OS == 'linux2' or OS == "linux":
+    sep = '/'
+else:
+    print("ERROR: OS {} not compatible".format(OS))
+    sys.exit()
+
+
+code_path = os.environ["QAQC_code"]
+print("QAQC code path: {}".format(code_path))
+out_path = os.environ["QAQC_out"]
+print("QAQC output path: {}".format(out_path))
+show_path = os.environ["QAQC_show"]
+print("QAQC show path: {}".format(show_path))
+data_path = os.environ["data"]
+print("Data path: {}".format(data_path))
+
+Data_path = "{}/raw_root".format(data_path)
+
+
+
+
+#home_folder = os.getcwd()
+#path = "{}/data_quality".format(home_folder)
+#if not(os.path.isdir(path)):
+#    os.mkdir(path)
 
 
 try:
@@ -41,15 +66,35 @@ except:
 for RUN in run:
 
     print("\n\n\nAnalyzing RUN {}\n\n".format(RUN))
-   
-    f2 = open("{}/{}/RUN_{}_summary.txt".format(path, RUN, RUN), "w")
+    
+    run_path = "{}/{}".format(out_path, RUN)
+    if not(os.path.isdir(run_path)):
+        os.mkdir(run_path)
+    path = "{}/decode_check".format(run_path)
+    if not(os.path.isdir(path)):
+        os.mkdir(path)
+    root_dir = "{}/root".format(path)
+    if not( os.path.isdir( root_dir ) ):
+        os.mkdir(root_dir)
+    pdf_dir = "{}/pdf".format(path)
+    if not( os.path.isdir( pdf_dir ) ):
+        os.mkdir(pdf_dir)
+    png_dir = "{}/png".format(path)
+    if not( os.path.isdir( png_dir ) ):
+        os.mkdir(png_dir)
+    log_dir = "{}/log".format(path)
+    if not( os.path.isdir( log_dir ) ):
+        os.mkdir(log_dir)
+
+
+    f2 = open("{}/RUN_{}_summary.txt".format(log_dir, RUN), "w")
 
 
     #############################################################################################
     #############################################################################################
 
 
-    with open("{}/{}/RUN_{}_data_log.txt".format(path, RUN, RUN), "r") as f:
+    with open("{}/RUN_{}_data_log.txt".format(log_dir, RUN), "r") as f:
 
         for line in f.readlines():
             if "GOOD SUBRUNs" in line:
@@ -92,7 +137,7 @@ for RUN in run:
     #############################################################################################
 
 
-    with open("{}/{}/RUN_{}_pkt_log.txt".format(path, RUN, RUN), "r") as f:
+    with open("{}/RUN_{}_pkt_log.txt".format(log_dir, RUN), "r") as f:
 
         for line in f.readlines():
             if "BAD SUBRUNs from Decode" in line:
@@ -117,9 +162,10 @@ for RUN in run:
     #############################################################################################
     #############################################################################################
 
+    data_path = "{}/{}".format(Data_path, RUN)
 
     sub_run_good = list()
-    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/Sub_RUN_event*".format(RUN)):
+    for file in glob.glob("{}/Sub_RUN_event*".format(data_path)):
         sub_run_good.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
     sub_run_good.sort()
     print ("SUBRUNs GOOD (event)  = {}\n".format(sub_run_good))
@@ -128,7 +174,7 @@ for RUN in run:
 
     # 1
     sub_run_lowEvents = list()
-    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/lowevent/Sub_RUN_event*".format(RUN)):
+    for file in glob.glob("{}/badSubRUN/lowevent/Sub_RUN_event*".format(data_path)):
         sub_run_lowEvents.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
     sub_run_lowEvents.sort()
     print ("SUBRUNs LOW EVENTS (event)  = {}\n".format(sub_run_lowEvents))
@@ -136,7 +182,7 @@ for RUN in run:
 
     # 2
     sub_run_holes = list()
-    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/nofireFEB/Sub_RUN_event*".format(RUN)):
+    for file in glob.glob("{}/badSubRUN/nofireFEB/Sub_RUN_event*".format(data_path)):
         sub_run_holes.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
     sub_run_holes.sort()
     print ("SUBRUNs HOLES (event)  = {}\n".format(sub_run_holes))
@@ -144,7 +190,7 @@ for RUN in run:
 
     # 3
     sub_run_l1ts = list()
-    for file in glob.glob("/dati/Data_CGEM_IHEP_Integration_2019/raw_root/{}/badSubRUN/tool1ts/Sub_RUN_event*".format(RUN)):
+    for file in glob.glob("{}/badSubRUN/tool1ts/Sub_RUN_event*".format(data_path)):
         sub_run_l1ts.append( int( file.split("/")[-1].split("_")[-1].split(".")[0] ) )
     sub_run_l1ts.sort()
     print ("SUBRUNs L1TS (event)  = {}\n".format(sub_run_l1ts))

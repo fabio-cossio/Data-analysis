@@ -83,6 +83,7 @@ for RUN in run:
     run_path = "{}/{}".format(out_path, RUN)
     if not(os.path.isdir(run_path)):
         os.mkdir(run_path)
+    
     path = "{}/decode_check".format(run_path)
     if not(os.path.isdir(path)):
         os.mkdir(path)
