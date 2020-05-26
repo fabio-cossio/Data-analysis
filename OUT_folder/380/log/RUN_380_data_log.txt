@@ -1,0 +1,33 @@
+
+RUN = 380
+subRunNo MAX = 1
+L1 count MAX = 10490
+TOTAL ENTRIES = 257389
+EMPTY SUBRUNs = [-1, 0]
+
+GOOD SUBRUNs (1) = [1]
+
+LOW ENTRIES SUBRUNs = [-1, 0]
+
+
+TIGER with no hits
+
+subRUN	TIGER
+
+
+FEBs with no hits
+
+subRUN	FEB
+
+
+GEMROCs with no hits
+
+GEMROC	FEB
+
+
+BAD SUBRUNs (low hits) from Decode: [-1, 0]
+
+
+
+BAD SUBRUNs (holes) from Decode: []
+

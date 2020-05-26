@@ -27,16 +27,20 @@ else:
 
 
 code_path = os.environ["QAQC_code"]
-print("QAQC code path: {}".format(code_path))
 out_path = os.environ["QAQC_out"]
-print("QAQC output path: {}".format(out_path))
-show_path = os.environ["QAQC_show"]
-print("QAQC show path: {}".format(show_path))
 data_path = os.environ["data"]
-print("Data path: {}".format(data_path))
+show_path = os.environ["QAQC_show"]
+
+#print("QAQC code path: {}".format(code_path))
+#print("QAQC output path: {}".format(out_path))
+#print("QAQC show path: {}".format(show_path))
+#print("Data path: {}".format(data_path))
 
 Data_path = "{}/raw_root".format(data_path)
 
+local_path = "/home/Fabio/analysis/Data-analysis/OUT_folder"
+if not(os.path.isdir(local_path)):
+    os.mkdir(local_path)
 
 
 
@@ -49,11 +53,11 @@ Data_path = "{}/raw_root".format(data_path)
 try:
     if len(sys.argv)==3 and sys.argv[1] == "full":
         run = [int(sys.argv[2])]
-        os.system( "python check_data.py {}".format(run[0]) )
-        os.system( "python check_pkt.py {}".format(run[0]) )
+        os.system( "python3 check_data.py {}".format(run[0]) )
+        os.system( "python3 check_pkt.py {}".format(run[0]) )
     elif len(sys.argv)==2 and sys.argv[1] == "full":
-        os.system( "python check_data.py all" )
-        os.system( "python check_pkt.py all" )
+        os.system( "python3 check_data.py all" )
+        os.system( "python3 check_pkt.py all" )
         run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
     elif sys.argv[1] == "all":
         run = [351, 368, 370, 372, 375, 355, 376, 377, 378, 387, 380, 383, 384, 385, 395, 396, 397, 400]
@@ -67,12 +71,20 @@ for RUN in run:
 
     print("\n\n\nAnalyzing RUN {}\n\n".format(RUN))
     
+    path = "{}/{}".format(local_path, RUN)
+    if not(os.path.isdir(path)):
+        os.mkdir(path)
+
     run_path = "{}/{}".format(out_path, RUN)
     if not(os.path.isdir(run_path)):
         os.mkdir(run_path)
-    path = "{}/decode_check".format(run_path)
-    if not(os.path.isdir(path)):
-        os.mkdir(path)
+
+    link_path = "{}/decode_check".format(run_path)
+    if not(os.path.isdir(link_path)):
+        os.system( "ln -s {} {}".format(path, link_path)  )
+
+
+    """
     root_dir = "{}/root".format(path)
     if not( os.path.isdir( root_dir ) ):
         os.mkdir(root_dir)
@@ -82,6 +94,8 @@ for RUN in run:
     png_dir = "{}/png".format(path)
     if not( os.path.isdir( png_dir ) ):
         os.mkdir(png_dir)
+    """
+
     log_dir = "{}/log".format(path)
     if not( os.path.isdir( log_dir ) ):
         os.mkdir(log_dir)

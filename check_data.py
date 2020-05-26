@@ -29,16 +29,20 @@ else:
 
 
 code_path = os.environ["QAQC_code"]
-print("QAQC code path: {}".format(code_path))
 out_path = os.environ["QAQC_out"]
-print("QAQC output path: {}".format(out_path))
-show_path = os.environ["QAQC_show"]
-print("QAQC show path: {}".format(show_path))
 data_path = os.environ["data"]
-print("Data path: {}".format(data_path))
+show_path = os.environ["QAQC_show"]
+
+#print("QAQC code path: {}".format(code_path))
+#print("QAQC output path: {}".format(out_path))
+#print("QAQC show path: {}".format(show_path))
+#print("Data path: {}".format(data_path))
 
 Data_path = "{}/raw_root".format(data_path)
 
+local_path = "/home/Fabio/analysis/Data-analysis/OUT_folder"
+if not(os.path.isdir(local_path)):
+    os.mkdir(local_path)
 
 
 
@@ -86,12 +90,18 @@ print("\n\nPerforming DATA QUALITY analysis on the following RUNs {}".format(run
 
 for RUN in run:
 
+    path = "{}/{}".format(local_path, RUN)
+    if not(os.path.isdir(path)):
+        os.mkdir(path)
+
     run_path = "{}/{}".format(out_path, RUN)
     if not(os.path.isdir(run_path)):
         os.mkdir(run_path)
-    path = "{}/decode_check".format(run_path)
-    if not(os.path.isdir(path)):
-        os.mkdir(path)
+
+    link_path = "{}/decode_check".format(run_path)
+    if not(os.path.isdir(link_path)):
+        os.system( "ln -s {} {}".format(path, link_path)  )
+
     root_dir = "{}/root".format(path)
     if not( os.path.isdir( root_dir ) ):
         os.mkdir(root_dir)
@@ -199,7 +209,7 @@ for RUN in run:
     mu = g.GetParameter(1)
     sigma = g.GetParameter(2)
     cut = mu - 4*sigma
-    print mu, sigma, cut
+    print("MEAN={}    SIGMA={}    CUT={}".format(mu, sigma, cut))
     line_cut = ROOT.TLine(cut,0, cut,h2.GetMaximum())
     line_cut.Draw()
 
@@ -312,7 +322,7 @@ for RUN in run:
     start = 0
     stop = 100
 
-    for i in range(0,subrun_max/100 + 1):
+    for i in range(0, int(subrun_max/100) + 1):
 
         start = i*100
         stop = (i+1)*100
