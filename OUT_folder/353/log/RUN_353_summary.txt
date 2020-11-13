@@ -1,0 +1,107 @@
+SUBRUNs to be CUT due to low hits = [-1, 0, 7, 16, 19, 34, 61, 62, 70, 80, 84]
+
+SUBRUNs to be CUT due to holes = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 63, 64, 65, 66, 67, 68, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 81, 82, 83]
+
+No SUBRUNs to be cut due to pakets shift: ['']
+
+SUBRUNs GOOD (decode) = []
+
+SUBRUNs GOOD (event)  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84]
+
+SUBRUNs LOW EVENTS (event)  = []
+
+SUBRUNs HOLES (event)  = []
+
+SUBRUNs L1TS (event)  = []
+
+
+
+Difference between GOOD subRUNs for Decode and Event: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84]
+
+GOOD subRUNs present in Decode but not in Event: []
+
+
+GOOD subRUNs present in Event but not in Decode: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84]
+0 --> LOW_HITS
+1 --> HOLES
+2 --> HOLES
+3 --> HOLES
+4 --> HOLES
+5 --> HOLES
+6 --> HOLES
+7 --> LOW_HITS
+8 --> HOLES
+9 --> HOLES
+10 --> HOLES
+11 --> HOLES
+12 --> HOLES
+13 --> HOLES
+14 --> HOLES
+15 --> HOLES
+17 --> HOLES
+18 --> HOLES
+19 --> LOW_HITS
+20 --> HOLES
+21 --> HOLES
+22 --> HOLES
+23 --> HOLES
+24 --> HOLES
+25 --> HOLES
+26 --> HOLES
+27 --> HOLES
+28 --> HOLES
+29 --> HOLES
+30 --> HOLES
+31 --> HOLES
+32 --> HOLES
+33 --> HOLES
+35 --> HOLES
+36 --> HOLES
+37 --> HOLES
+38 --> HOLES
+39 --> HOLES
+40 --> HOLES
+41 --> HOLES
+42 --> HOLES
+43 --> HOLES
+44 --> HOLES
+45 --> HOLES
+46 --> HOLES
+47 --> HOLES
+48 --> HOLES
+49 --> HOLES
+50 --> HOLES
+51 --> HOLES
+52 --> HOLES
+53 --> HOLES
+54 --> HOLES
+55 --> HOLES
+56 --> HOLES
+57 --> HOLES
+58 --> HOLES
+59 --> HOLES
+60 --> HOLES
+61 --> LOW_HITS
+62 --> LOW_HITS
+63 --> HOLES
+64 --> HOLES
+65 --> HOLES
+66 --> HOLES
+67 --> HOLES
+68 --> HOLES
+69 --> HOLES
+70 --> LOW_HITS
+71 --> HOLES
+72 --> HOLES
+73 --> HOLES
+74 --> HOLES
+75 --> HOLES
+76 --> HOLES
+77 --> HOLES
+78 --> HOLES
+79 --> HOLES
+80 --> LOW_HITS
+81 --> HOLES
+82 --> HOLES
+83 --> HOLES
+84 --> LOW_HITS

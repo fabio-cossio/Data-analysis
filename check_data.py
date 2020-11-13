@@ -115,6 +115,11 @@ for RUN in run:
     if not( os.path.isdir( log_dir ) ):
         os.mkdir(log_dir)
 
+    show_dir = "{}/{}".format(show_path, RUN)
+    if not(os.path.isdir(show_dir)):
+        os.mkdir(show_dir)
+
+
     f = open("{}/RUN_{}_data_log.txt".format(log_dir, RUN), "w")
 
     #################################################################################
@@ -265,7 +270,8 @@ for RUN in run:
     h1.GetYaxis().SetTitle("TIGER")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1600, 1000)
     chain.Draw("gemroc*8+tiger:subRunNo>>h1", condition, "colz")
-
+    h1.SetStats(0)
+    
     line_tiger = list()
     for i in range(0, 23):
         line_tiger.append(ROOT.TLine(0, i*4, subrun_max, i*4))
@@ -285,7 +291,7 @@ for RUN in run:
                 binN = h1.GetBin(subRUN+1, TIGER+1)
                 N = h1.GetBinContent(binN)
                 if N == 0:
-                    if (RUN < 375 or TIGER != 69) and (RUN < 376 or TIGER != 68):
+                    if (RUN<375 or TIGER!=69) and (RUN<376 or TIGER!=68) and (RUN<405 or TIGER!=72) and (RUN<407 or (TIGER!=4 and TIGER!=5 and TIGER!=64 and TIGER!=65)) and (RUN<418 or (TIGER!=84 and TIGER!=86 and TIGER!=87)):
                         h2.Fill(TIGER)
                         print("{}\t{}".format(subRUN, TIGER))
                         f.write("{}\t{}\n".format(subRUN, TIGER))
@@ -300,6 +306,7 @@ for RUN in run:
     c1.SaveAs("{}/Hits_vs_TIGER.pdf".format(pdf_dir))
     c1.SaveAs("{}/Hits_vs_TIGER.png".format(png_dir))
     c1.SaveAs("{}/Hits_vs_TIGER.root".format(root_dir))
+    c1.SaveAs("{}/Hits_vs_TIGER.png".format(show_dir))
     h1.Delete()
     c1.Close()
 
@@ -381,7 +388,7 @@ for RUN in run:
                 binN = h1.GetBin(subRUN+1, FEB+1)
                 N = h1.GetBinContent(binN)
                 if N == 0:
-                    if (RUN < 376 or FEB != 34):
+                    if (RUN<376 or FEB!=34) and (RUN<407 or (FEB!=2 and FEB!=32) and (RUN<418 or FEB!=43)):
                         h2.Fill(FEB)
                         print("{}\t{}".format(subRUN, FEB))
                         f.write("{}\t{}\n".format(subRUN, FEB))

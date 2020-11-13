@@ -1,0 +1,51 @@
+
+RUN = 411
+subRunNo MAX = 206
+L1 count MAX = 2533
+TOTAL ENTRIES = 4010117
+TOTAL ENTRIES = 4007839 (2278 spurious removed, 0.06%)
+
+ANALYSIS ON L1TS_MIN_TCOARSE ERRORS
+GOOD ENTRIES = 3998391 (99.76%)
+ BAD ENTRIES = 9448 (0.24%)
+
+Cut on L1 COUNT set to 19.5
+
+l1ts_min_tcoarse errors from TIGER 0-3 = 1235 (13.07%)
+l1ts_min_tcoarse errors from TIGER 4-7 = 8213 (86.93%)
+
+
+GEMROC 0:
+
+GEMROC 1:
+
+GEMROC 2:
+
+GEMROC 3:
+
+GEMROC 4:
+BAD subRUN = 0 (371, 25.75%)
+
+GEMROC 5:
+BAD subRUN = 0 (307, 29.04%)
+
+GEMROC 6:
+BAD subRUN = 113 (1250, 48.04%)
+BAD subRUN = 163 (893, 44.56%)
+
+GEMROC 7:
+BAD subRUN = 0 (195, 27.01%)
+BAD subRUN = 182 (650, 45.39%)
+
+GEMROC 8:
+
+GEMROC 9:
+
+GEMROC 10:
+
+
+BAD SUBRUNs from Decode: [0, 113, 163, 182]
+
+
+Done
+

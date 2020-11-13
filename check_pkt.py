@@ -117,6 +117,7 @@ for RUN in run:
 
     f = open("{}/RUN_{}_pkt_log.txt".format(log_dir, RUN), "w")
 
+
     #################################################################################
     #################################################################################
 
@@ -263,7 +264,8 @@ for RUN in run:
     h1.GetYaxis().SetTitle("subRunNo")
     c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
     chain.Draw("subRunNo:count>>h1", condition, "colz")
-
+    h1.SetStats(0)
+    
     line_cut = ROOT.TLine(l1count_cut, 0, l1count_cut, subrun_max)
     line_cut.Draw()
     line_cut.SetLineStyle(7)
@@ -347,7 +349,8 @@ for RUN in run:
             h1.GetYaxis().SetTitle("subRunNo")
             c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
             chain.Draw("subRunNo:count>>h1", condition, "colz")
-
+            h1.SetStats(0)
+            
             line_cut = ROOT.TLine(l1count_cut, 0, l1count_cut, subrun_max)
             line_cut.Draw()
             line_cut.SetLineStyle(7)
@@ -373,6 +376,7 @@ for RUN in run:
             h1.GetYaxis().SetTitle("N")
             c1 = ROOT.TCanvas("c11", "c11", 100, 100, 1800, 1200)
             chain.Draw("subRunNo>>h1", condition, "")
+                      
             for subrun_bin in range(0, subrun_max):
                 N = int(h1.GetBinContent(subrun_bin))
                 D = int(h2.GetBinContent(subrun_bin))

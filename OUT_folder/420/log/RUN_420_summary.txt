@@ -1,0 +1,24 @@
+SUBRUNs to be CUT due to low hits = [-1, 0, 1, 2, 3, 5, 6, 8, 10, 11, 12, 13, 17, 19, 20, 22, 23, 25, 26, 27, 31, 32, 33, 35, 36, 37, 40, 41, 42, 44, 47, 50, 51, 53, 54, 62, 63, 64, 65, 66, 67, 71, 72, 73, 76, 78, 82, 84, 86, 90, 93, 96, 97]
+
+SUBRUNs to be CUT due to holes = [4, 15, 30]
+
+SUBRUNs to be CUT due to packets shift = [9, 68, 69, 87, 88]
+
+SUBRUNs GOOD (decode) = [7, 14, 16, 18, 21, 24, 28, 29, 34, 38, 39, 43, 45, 46, 48, 49, 52, 55, 56, 57, 58, 59, 60, 61, 70, 74, 75, 77, 79, 80, 81, 83, 85, 89, 91, 92, 94, 95, 98]
+
+SUBRUNs GOOD (event)  = [7, 14, 16, 18, 21, 24, 28, 29, 34, 38, 39, 43, 45, 46, 48, 49, 52, 55, 56, 57, 58, 59, 60, 61, 70, 74, 75, 77, 79, 80, 81, 83, 85, 89, 91, 92, 94, 95, 98] (39.39%)
+
+SUBRUNs LOW EVENTS (event)  = [] (0.00%)
+
+SUBRUNs HOLES (event)  = [4, 15, 30] (3.03%)
+
+SUBRUNs L1TS (event)  = [9, 68, 69, 87, 88] (5.05%)
+
+
+
+Difference between GOOD subRUNs for Decode and Event: [] (0.00%)
+
+GOOD subRUNs present in Decode but not in Event: []
+
+
+GOOD subRUNs present in Event but not in Decode: []
