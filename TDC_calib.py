@@ -66,7 +66,10 @@ ROOT.gErrorIgnoreLevel = ROOT.kWarning
 #################################################################################
 #################################################################################
 
-f = ROOT.TFile("mapping_IHEP_L2_2planari_penta.root")
+
+map_path = "/home/ihep_data/TIGER_Event_Reconstruction/mapping_and_calibration_file/"
+map_file = map_path + "mapping_CGEMBOSS_2.0.root"
+f = ROOT.TFile(map_file)
 tr = f.Get("tree")
 
 map_dict = dict()
@@ -102,15 +105,11 @@ for i in range( tr.GetEntries() ):
 	map_dict[FEB_label[0]] = [layer_id[0], HW_FEB_id[0]]
 
 
-pickle.dump( map_dict, open( "mapping.pickle", "wb" ) )
+pickle.dump( map_dict, open( "TDC_folder/mapping.pickle", "wb" ) )
 
 
 #################################################################################
 #################################################################################
-
-
-
-
 
 
 
@@ -124,14 +123,14 @@ pickle.dump( map_dict, open( "mapping.pickle", "wb" ) )
 
 if is_tdc_calib:
 
-
-        run_list = [338, 339, 340, 341, 342, 343, 351]
-
+        
+	#run_list = [338, 339, 340, 341, 342, 343, 351]
+	run_list = [351, 353, 355, 356, 357, 360, 365, 368, 370, 372, 375, 376, 377, 378, 380]
 
 
 	#img = ROOT.TImage.Create()
 
-	out_file = ROOT.TFile("TDC_calib/Tfine.root", "RECREATE")
+	out_file = ROOT.TFile("TDC_folder/Tfine.root", "RECREATE")
 	if out_file.IsOpen():
 		print("ROOT file opened successfully")
 	else:
@@ -140,12 +139,12 @@ if is_tdc_calib:
 
 	print("\nImporting pickle with Tfine data...\n")
 
-        pickle_list = list()
-        for run in run_list:
-                with open('TDC_calib/Tfine_{}.pickle'.format(run), 'rb') as handle:
-                        print("Reading data from run {}...".format(run) )
-                        Tfine_dict = pickle.load(handle)
-                        pickle_list.append(Tfine_dict)
+	pickle_list = list()
+	for run in run_list:
+		with open('TDC_folder/Tfine_{}.pickle'.format(run), 'rb') as handle:
+			print("Reading data from run {}...".format(run) )
+			Tfine_dict = pickle.load(handle)
+			pickle_list.append(Tfine_dict)
 
 	print("\nImport finished.\n")
 
@@ -222,7 +221,7 @@ if is_tdc_calib:
 			h_dT2.SetMarkerStyle(3)
 
 			#with open("TDC_calib/calib/L{}FEB{}_c{}_TDC_calib.tdc".format(layer_number, feb_number, chip_number), "w") as tdc_file:
-			with open("TDC_calib/calib/L{}FEB{}_c{}_TDCscan.tdc".format(layer_number, HW_feb, chip_number), "w") as tdc_file:
+			with open("TDC_folder/calib/L{}FEB{}_c{}_TDCscan.tdc".format(layer_number, HW_feb, chip_number), "w") as tdc_file:
 
 				for channel_number in Tfine_dict[feb_number][chip_number].keys():
 				#for channel_number in range(0, 5):
@@ -248,11 +247,11 @@ if is_tdc_calib:
 					for tac_number in Tfine_dict[feb_number][chip_number][channel_number].keys():
 						#print ("TAC {}".format(tac_number))
 						#h[tac_number] = ROOT.TH1I("h_{}_{}_{}_{}".format(feb_number, chip_number, channel_number, tac_number), "Tfine (FEB={}, CHIP={}, CHANNEL={}, TAC={})".format(feb_number, chip_number, channel_number, tac_number), 1024/8, 0, 1024)
-						h[tac_number] = ROOT.TH1I("h_{}_{}_{}_{}".format(feb_number, chip_number, channel_number, tac_number), "Tfine (FEB={} ({}), CHIP={}, CHANNEL={}, TAC={})".format(feb_number, HW_feb, chip_number, channel_number, tac_number), 1024/8, 0, 1024)
+						h[tac_number] = ROOT.TH1I("h_{}_{}_{}_{}".format(feb_number, chip_number, channel_number, tac_number), "Tfine (FEB={} ({}), CHIP={}, CHANNEL={}, TAC={})".format(feb_number, HW_feb, chip_number, channel_number, tac_number), int(1024/8), 0, 1024)
 
 						h[tac_number].SetFillColor(38)
                                                 
-                                                """
+						"""
 						for x in Tfine_dict[feb_number][chip_number][channel_number][tac_number]:
 							if channel_number != 62:
 								h[tac_number].Fill(x)
@@ -260,19 +259,19 @@ if is_tdc_calib:
 						for x in Tfine_dict2[feb_number][chip_number][channel_number][tac_number]:
 							if channel_number != 62:
 								h[tac_number].Fill(x)
-                                                """
+ 						"""
 						
-                                                """
-                                                for x in Tfine_dict[feb_number][chip_number][channel_number][tac_number]:
+						"""
+						for x in Tfine_dict[feb_number][chip_number][channel_number][tac_number]:
 							h[tac_number].Fill(x)
 						
-                                                for x in Tfine_dict2[feb_number][chip_number][channel_number][tac_number]:
+ 						for x in Tfine_dict2[feb_number][chip_number][channel_number][tac_number]:
 							h[tac_number].Fill(x)
-                                                """
+						"""
                                                 
-                                                for d in pickle_list:
-                                                        for x in d[feb_number][chip_number][channel_number][tac_number]:
-                                                                h[tac_number].Fill(x)
+						for d in pickle_list:
+							for x in d[feb_number][chip_number][channel_number][tac_number]:
+								h[tac_number].Fill(x)
 
 						c.cd(tac_number+1)
 						#print ("Drawing histograms")
@@ -404,11 +403,11 @@ if is_tdc_calib:
 					c.Update()
 					#img.FromPad(c)
 					#img.WriteImage("TDC_calib/images/L{}/Tfine_L{}_{}_{}_{}.png".format( ll, ll, HW_feb, chip_number, channel_number ) )
-                                        c.SaveAs( "TDC_calib/images/L{}/Tfine_L{}_{}_{}_{}.pdf".format( ll, ll, HW_feb, chip_number, channel_number ) )
-                                        c.Write()
+					c.SaveAs( "TDC_folder/images/L{}/Tfine_L{}_{}_{}_{}.pdf".format( ll, ll, HW_feb, chip_number, channel_number ) )
+					c.Write()
 
 					if bad_tdc:
-						c.SaveAs("TDC_calib/images/bad/Tfine_L{}_{}_{}_{}.pdf".format( ll, HW_feb, chip_number, channel_number ) )
+						c.SaveAs("TDC_folder/images/bad/Tfine_L{}_{}_{}_{}.pdf".format( ll, HW_feb, chip_number, channel_number ) )
 
 					#print ("Deleting canvas")
 					#c.Destructor()
@@ -431,14 +430,14 @@ if is_tdc_calib:
 	c_dT.cd(1)
 	h_dT.Draw()
 	#img.FromPad(c_dT)
-	c_dT.SaveAs("TDC_calib/IF.pdf")
+	c_dT.SaveAs("TDC_folder/IF.pdf")
 	h_dT.Write()
 
 
 	#c_dT2.cd(1)
 	#h_dT2.Draw()
 	#img.FromPad(c_dT2)
-	#img.WriteImage("TDC_calib/IF2.png")
+	#img.WriteImage("TDC_folder/IF2.png")
 	#h_dT2.Write()
 
 
@@ -447,7 +446,7 @@ if is_tdc_calib:
 
 	print("\n\nFEB summary\n")
 
-	with open("TDC_calib/summary.txt".format(layer_number, HW_feb, chip_number), "w") as summary_file:
+	with open("TDC_folder/summary.txt".format(layer_number, HW_feb, chip_number), "w") as summary_file:
                 for err in fit_error_list:
                         print( "L{0}FEB{1}_c{2}\tch {3}\ttac {4}\tMIN={5:.1f}\tMAX={6:.1f}\tdelta={7:.1f}    N={8}".format( err[0], err[1], err[2], err[3], err[4], err[5], err[6], err[7], err[8] ) )
                         summary_file.write("L{0}FEB{1}_c{2}\tch {3}\ttac {4}\tMIN={5:.1f}\tMAX={6:.1f}\tdelta={7:.1f}    N={8}\n".format( err[0], err[1], err[2], err[3], err[4], err[5], err[6], err[7], err[8] ) )
@@ -581,7 +580,7 @@ if is_check_data:
 		#	print ("READ {} hits".format(i) )
 		
 		if tfine_uncal[0] == 0 or tfine_uncal[0] > 900:
-			print layer[0], FEB_label[0], chip[0], channel[0], tac[0], tfine_uncal[0], efine_uncal[0], charge_SH[0], tcoarse[0], ecoarse[0]
+			print (layer[0], FEB_label[0], chip[0], channel[0], tac[0], tfine_uncal[0], efine_uncal[0], charge_SH[0], tcoarse[0], ecoarse[0])
 			FEB_errors.append(FEB_label[0])
 
 	
